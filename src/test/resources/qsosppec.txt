@@ -1,0 +1,24 @@
+QSO: freq mo date time call Cat sec sec
+       000000000111111111122222222223333333333444444 123456789012345678901234567890123456789012345
+QSO: 3750 PH 2017-01-07 1911 W8D QSO: 7030 CW2017-01-07 2021 W8D QSO: 14070 DI 2017-01-07 2131 W8D
+14I LA
+call
+1O OH 1O OH
+WB9XXX K8UO
+2H IL 14I MI
+K6XXX
+1O OH
+1O OH
+1O OH K6XXX
+
+---------info time call
+sent----------- rst ex1 ex2 nnn nnnn aa
+59 0901 VB
+---------info call ************* G3XTT
+rcvd----------- rst ex1 ex2 nnn nnnn aa
+59 0031 --
+QSO: freq mo date
+QSO: ***** ** yyyy-mm-dd
+QSO: 3500 PH 2002-07-28
+QSO: 3500 PH 2002-07-28
+QSO: 3500 PH 2002-07-28
