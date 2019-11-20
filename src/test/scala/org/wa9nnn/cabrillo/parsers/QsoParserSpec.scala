@@ -10,7 +10,7 @@ class QsoParserSpec extends Specification {
       val lineNumber = 42
       val handler_WFD = new QsoTagParser_WFD()
       val body = "14252 PH 2017-01-28 1935 N4KGL         1O  AL      KC0JUO        1I  IA"
-      val qsowfd = handler_WFD.parse(lineNumber, tag, body)
+      val qsowfd = handler_WFD.parse(LineBody(lineNumber, body))
       qsowfd.tag must beEqualTo (tag)
       qsowfd.body must beEqualTo (body)
       qsowfd.freq must beEqualTo ("14252")

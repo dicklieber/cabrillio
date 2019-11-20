@@ -1,0 +1,17 @@
+ContestParser
+   contest: WFD
+   # capture groups
+   # 1: frequency
+   # 2: mode
+   # 3: date/time
+   # 4: sent exchange string
+   # 5 received exchange string
+   parseQso : "(\S+)\s+(\S+)\s+([\d\-]+\s+\d+)\s+(\S+\s+\S+\s+\S+)\s++(\S+\s+\S+\s+\S+)"
+   parseSentExchange: "(\\S+)\\s+(\\S+)\\s+(\\S+)"
+   exchangeFields:
+      - callsign
+      - category
+      - section
+   parseReceivedExchange: "(\\S+)\\s+(\\S+)\\s+(\\S+)"
+
+

@@ -3,22 +3,27 @@ package org.wa9nnn.cabrillo.parsers
 
 import org.wa9nnn.cabrillo.model.TagValue
 import org.wa9nnn.cabrillo.model.CabrilloTypes._
+import org.wa9nnn.cabrillo.requirements.CabrilloError
 
 trait TagParser {
+
   def tag: Tag
 
-  def parse(lineNo: Int, tag: String, body: String): TagValue
+  def parse(lineBody: LineBody): TagValue
 
 }
+case class LineBody(lineNumber:Int, body:String)
 
-object DefaultTagParser extends TagParser {
-  override def tag: String = "*"
+class DefaultTagParser(val tag: Tag) extends TagParser {
 
-  override def parse(lineNo: Int, tag: Tag, body: String): TagValue = {
-    AnyTag(tag, lineNo, body)
+  override def parse(lineBody: LineBody): TagValue = {
+    new SimpleTag(tag, lineBody)
   }
 }
 
-case class AnyTag(tag: Tag, lineNumber: Int, body: String) extends TagValue {
+case class SimpleTag(tag: Tag, lineNumber: Int, body: String) extends TagValue {
+  def this(tag:Tag, lineBody:LineBody){
+    this(tag, lineBody.lineNumber, lineBody.body)
+  }
   override def toString: String = body
 }

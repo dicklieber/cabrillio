@@ -19,5 +19,3 @@ class FileAccumulator {
     .map(tv ⇒ tv.head.tag → tv)
     .toMap
 }
-
-case class Values(tag: Tag, values: Seq[TagValue])

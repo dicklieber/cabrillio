@@ -1,35 +1,37 @@
 
 package org.wa9nnn.cabrillo
 
-import org.wa9nnn.cabrillo.model.ParsedCabrillo
-import org.wa9nnn.cabrillo.parsers.{DefaultTagParser, QsoTagParser_WFD}
+import org.wa9nnn.cabrillo.contests.ContestInfoWFD
+import org.wa9nnn.cabrillo.model.Cabrillo
+import org.wa9nnn.cabrillo.parsers.LineBody
+import org.wa9nnn.cabrillo.requirements.RequiredTags
 
 import scala.io.BufferedSource
 
 /**
- * Knows how to parse a Cabrillo file info a form tha can be laer validated.
+ * Knows how to parse a Cabrillo file info a form that can be later validated.
  */
-object ParseEngine {
+class ParseEngine(handlers:RequiredTags) {
   private val lineRegx = """(.*)\s*:\s*(.*)""".r
-  private val parsers: Map[String, QsoTagParser_WFD] = Seq(
-    QsoTagParser_WFD.tag → new QsoTagParser_WFD
-  ).toMap
+  //  private val parsers: Map[String, QsoTagParser_WFD] = Seq(
+  //    QsoTagParser_WFD.tag → new QsoTagParser_WFD
+  //  ).toMap
 
   /**
    *
    * @param source to be processed. e.g.{{ val bufferedSource = Source.fromResource("wfd1.cbr")}}
    * @return map of tag name to values.
    */
-  def parse(source: BufferedSource): ParsedCabrillo = {
+  def parse(source: BufferedSource): Cabrillo = {
     val fileAccumulator = new FileAccumulator
 
     source.getLines().zipWithIndex.foreach { t ⇒
       val (line: String, lineNumber: Int) = t
       val lineRegx(tag, body) = line
 
-      fileAccumulator.accumulate(parsers.getOrElse(tag, DefaultTagParser).parse(lineNumber, tag, body))
+      fileAccumulator.accumulate(handlers.get(tag).parse(LineBody(lineNumber + 1, body)))
     }
 
-    ParsedCabrillo(fileAccumulator.result)
+    Cabrillo(fileAccumulator.result)
   }
 }
