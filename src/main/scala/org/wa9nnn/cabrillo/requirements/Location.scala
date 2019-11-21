@@ -1,24 +1,25 @@
 
 package org.wa9nnn.cabrillo.requirements
 
-import org.wa9nnn.cabrillo.model.Cabrillo
+import org.wa9nnn.cabrillo.model.{Cabrillo, TagValue}
 
-case class Location()(implicit ontestInfo: ContestInfo) extends TagHandler("LOCATION") {
+case class Location()(implicit contestInfo: ContestInfo) extends TagHandler("LOCATION") {
 
   override def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
 
-    val head = parsedCabrillo(tag).head
+    val head: TagValue = parsedCabrillo(tag).head
     try {
-      ontestInfo.validateLocation(head.body)
+      contestInfo.validateLocation(head.body)
       Seq.empty
     } catch {
       case e: Exception ⇒
-        Seq(new ValueErrorAtLine(head, e.getMessage))
-      case _ : Throwable⇒
+        Seq(CabrilloError(head, e.getMessage))
+      case _: Throwable ⇒
         Seq.empty
     }
   }
 }
+
 case class Section()(implicit ontestInfo: ContestInfo) extends TagHandler("ARRL-SECTION") {
 
   override def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
@@ -29,24 +30,25 @@ case class Section()(implicit ontestInfo: ContestInfo) extends TagHandler("ARRL-
       Seq.empty
     } catch {
       case e: Exception ⇒
-        Seq(new ValueErrorAtLine(head, e.getMessage))
+        Seq(CabrilloError(head, e.getMessage))
       case _: Throwable ⇒
         Seq.empty
     }
   }
 }
-case class Category()(implicit ontestInfo: ContestInfo) extends TagHandler("CATEGORY") {
+
+case class Category()(implicit contestInfo: ContestInfo) extends TagHandler("CATEGORY") {
 
   override def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
 
     val head = parsedCabrillo(tag).head
     try {
-      ontestInfo.validateCatagory(head.body)
+      contestInfo.validateCatagory(head.body)
       Seq.empty
     } catch {
       case e: Exception ⇒
-        Seq(new ValueErrorAtLine(head, e.getMessage))
-      case _ : Throwable⇒
+        Seq(CabrilloError(head, e.getMessage))
+      case _: Throwable ⇒
         Seq.empty
     }
   }

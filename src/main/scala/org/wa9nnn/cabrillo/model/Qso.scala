@@ -3,7 +3,7 @@ package org.wa9nnn.cabrillo.model
 
 import java.time.ZonedDateTime
 
-import org.wa9nnn.cabrillo.requirements.{FreqException, Frequencies, ValueErrorAtLine}
+import org.wa9nnn.cabrillo.requirements.{FreqException, Frequencies, CabrilloError}
 
 import scala.util.Try
 
@@ -18,13 +18,13 @@ trait Qso extends TagValue {
 
   def received: Exchange
 
-  def checkFreq: Seq[ValueErrorAtLine] = {
+  def checkFreq: Seq[CabrilloError] = {
     try {
       Frequencies.check(freq)
       Seq.empty
     } catch {
       case ef: FreqException ⇒
-        Seq(new ValueErrorAtLine(this, ef.getMessage))
+        Seq(CabrilloError(this, ef.getMessage))
     }
   }
 }

@@ -8,15 +8,15 @@ import org.wa9nnn.cabrillo.requirements.ContestInfo
 class ContestInfoWFD extends ContestInfo {
   //  private val Parse = """(\d*\p{Upper})""".r
   private val qsoTagParser_WFD = new QsoTagParser_WFD
+  private val arrlSections = new ArrlSections
 
   /**
    *
-   * @param location
+   * @param location code e.g. "IL"
    * @throws Exception
    */
   override def validateLocation(location: String): Unit = {
-    if (!ArrlSections.byCode.contains(location))
-      throw new IllegalArgumentException()
+    arrlSections.check(location)
   }
 
   override def validateCatagory(category: String): Unit = {

@@ -25,4 +25,11 @@ object Cabrillo {
   }
 }
 
-case class Result(url: URL, duration: Duration, errors: Seq[CabrilloError], stamp: LocalDateTime = LocalDateTime.now())
+/**
+ *
+ * @param url where the daa came from.
+ * @param duration how long it took to run the cavbrillo check & report
+ * @param errors that were found.
+ * @param reportRunTime when this check & report finished.
+ */
+case class Result(url: URL, duration: Duration, errors: Seq[CabrilloError], reportRunTime: LocalDateTime = LocalDateTime.now())

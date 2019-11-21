@@ -3,14 +3,23 @@ package org.wa9nnn.cabrillo.contests
 
 import scala.language.postfixOps
 
-object ArrlSections {
+class ArrlSections {
 
-  def find(partial:String):Seq[ArrlSection] = {
-    ArrlSections.filter(_.code.startsWith(partial))
+  def find(partial: String): Seq[ArrlSection] = {
+    arrlSections.filter(_.code.startsWith(partial.toUpperCase()))
   }
 
-//todo Load from a file
-  val ArrlSections: Seq[ArrlSection] = Seq(
+  /**
+   *
+   * @param code section code e.g. "IL"
+   * @throws UnknownSectionCodeException on failure
+   */
+  def check(code: String): Unit = {
+    byCode.getOrElse(code.toUpperCase(), throw new UnknownSectionCodeException(code))
+  }
+
+  //todo Load from a file
+  val arrlSections: Seq[ArrlSection] = Seq(
     ArrlSection("Connecticut", "CT", "1"),
     ArrlSection("Eastern Massachusetts", "EMA", "1"),
     ArrlSection("Maine", "ME", "1"),
@@ -98,5 +107,7 @@ object ArrlSections {
   ).sorted
 
 
-  val byCode: Map[String, ArrlSection] = ArrlSections.map(s ⇒ s.code → s) toMap
+  val byCode: Map[String, ArrlSection] = arrlSections.map(s ⇒ s.code → s) toMap
 }
+
+class UnknownSectionCodeException(code: String) extends Exception(s"Unknown ARRL section: $code")

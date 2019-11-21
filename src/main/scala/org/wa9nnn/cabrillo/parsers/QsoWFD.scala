@@ -5,7 +5,7 @@ import java.time.ZonedDateTime
 
 import org.wa9nnn.cabrillo.model.CabrilloTypes.Tags
 import org.wa9nnn.cabrillo.model._
-import org.wa9nnn.cabrillo.requirements.{Any, CabrilloError, ContestInfo, TagHandler, ValueErrorAtLine}
+import org.wa9nnn.cabrillo.requirements.{Any, CabrilloError, ContestInfo, TagHandler}
 
 class QsoTagParser_WFD extends TagHandler("QSO", Any) {
   override val tag: String = QsoTagParser_WFD.tag
@@ -42,22 +42,22 @@ object QsoTagParser_WFD {
 case class Exchange_WFD(callsign: String, category: String, section: String) extends Exchange
 
 case class QSO_WFD(tag: String, lineNumber: Int, body: String, freq: String, mode: String, stamp: ZonedDateTime, sent: Exchange_WFD, received: Exchange_WFD) extends Qso {
-  def check()(implicit contestInfo: ContestInfo): Seq[ValueErrorAtLine] = {
+  def check()(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     checkExchange(sent) ++ checkExchange(received) ++
       checkFreq ++
       checkMode
 
   }
 
-  def checkMode: Seq[ValueErrorAtLine] = {
+  def checkMode: Seq[CabrilloError] = {
     Seq.empty
   }
- def checkStamp: Seq[ValueErrorAtLine] = {
+ def checkStamp: Seq[CabrilloError] = {
     Seq.empty
   }
 
 
-  def checkExchange(exchange: Exchange_WFD): Seq[ValueErrorAtLine] = {
+  def checkExchange(exchange: Exchange_WFD): Seq[CabrilloError] = {
     Seq.empty
   }
 

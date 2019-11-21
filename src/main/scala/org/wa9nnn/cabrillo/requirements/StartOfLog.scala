@@ -17,7 +17,7 @@ object StartOfLog extends TagHandler("START-OF-LOG") with LazyLogging {
           failure(tv, s"""$tag is not "V3.0"""")
         }
       case None ⇒
-        Seq(MissingTag(tag))
+        Seq(CabrilloError(tag))
     }
   }
 }

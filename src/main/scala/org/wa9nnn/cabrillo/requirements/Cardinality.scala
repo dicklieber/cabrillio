@@ -5,7 +5,7 @@ import org.wa9nnn.cabrillo.model.CabrilloTypes.{Tag, Tags}
 
 
 /**
- * Checks that there are the correct number of instances of a tag.
+ * CSpecifies and hecks that there are the correct number of instances of a tag.
  */
 sealed trait Cardinality {
   /**
@@ -19,8 +19,8 @@ sealed trait Cardinality {
       Seq.empty
     } catch {case c: CardinalityException ⇒
        c.toErrors
-//    case x:Exception ⇒
-//        throw x
+    case x:Exception ⇒
+        throw x
     }
   }
 
@@ -60,10 +60,10 @@ case object OneOrMore extends Cardinality {
 class CardinalityException(message: String, tag: Tag, tags: Tags) extends Exception(message) {
   def toErrors: Seq[CabrilloError] = {
     if (tags.isEmpty)
-      Seq(MissingTag(tag))
+      Seq(CabrilloError(tag))
     else
       tags.map { tv ⇒
-        ValueErrorAtLine(tv.lineNumber, tv.body, tv.tag, message)
+        CabrilloError(tv.lineNumber, tv.body, tv.tag, message)
       }
   }
 }

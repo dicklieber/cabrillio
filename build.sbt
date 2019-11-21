@@ -6,7 +6,6 @@ scalaVersion := "2.13.1"
 
 resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
 
-
 scalacOptions in(Compile, doc) ++= Seq("-verbose", "-Yliteral-types")
 
 libraryDependencies ++= Seq(
@@ -14,4 +13,5 @@ libraryDependencies ++= Seq(
   "ch.qos.logback" % "logback-classic" % "1.2.3",
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
   "nl.grons" %% "metrics4-scala" % "4.1.1",
+  "com.typesafe.play" %% "play-json" % "2.8.0"
 )

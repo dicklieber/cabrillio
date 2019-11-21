@@ -30,7 +30,7 @@ abstract class TagHandler(val tag: Tag, val cardinality: Cardinality = One) exte
       } catch {
         case e: CardinalityException ⇒
           if (tvs.isEmpty)
-            Seq(MissingTag(tag))
+            Seq(CabrilloError(tag))
           e.toErrors
       }
     }
@@ -45,10 +45,11 @@ abstract class TagHandler(val tag: Tag, val cardinality: Cardinality = One) exte
 
   def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError]
 
-  def failure(tagValue: TagValue, cause: String): Seq[ValueErrorAtLine] = {
+  def failure(tagValue: TagValue, cause: String): Seq[CabrilloError] = {
     logger.debug(s"failure: $cause")
-    Seq(ValueErrorAtLine(tagValue.lineNumber, tagValue.body, tagValue.tag, cause))
+    Seq(CabrilloError(tagValue.lineNumber, tagValue.body, tagValue.tag, cause))
   }
+
 
 }
 
