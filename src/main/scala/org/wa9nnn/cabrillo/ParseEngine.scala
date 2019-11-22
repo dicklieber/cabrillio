@@ -4,14 +4,14 @@ package org.wa9nnn.cabrillo
 import org.wa9nnn.cabrillo.contests.ContestInfoWFD
 import org.wa9nnn.cabrillo.model.Cabrillo
 import org.wa9nnn.cabrillo.parsers.LineBody
-import org.wa9nnn.cabrillo.requirements.RequiredTags
+import org.wa9nnn.cabrillo.requirements.Rules
 
 import scala.io.BufferedSource
 
 /**
  * Knows how to parse a Cabrillo file info a form that can be later validated.
  */
-class ParseEngine(handlers:RequiredTags) {
+class ParseEngine(handlers:Rules) {
   private val lineRegx = """(.*)\s*:\s*(.*)""".r
   //  private val parsers: Map[String, QsoTagParser_WFD] = Seq(
   //    QsoTagParser_WFD.tag → new QsoTagParser_WFD

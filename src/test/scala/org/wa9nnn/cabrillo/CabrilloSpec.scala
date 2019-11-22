@@ -13,17 +13,19 @@ class CabrilloSpec extends Specification {
       val bufferedSource = Source.fromURL(url)
       val result = Cabrillo(bufferedSource, url)
       result.url must beEqualTo(url)
-      result.errors must beEmpty
+      result.tagsWithErrors must beEmpty
     }
     "nostart" in {
-      val expectedError: CabrilloError = CabrilloError("START-OF-LOG")
       val url = getClass.getResource("/wfd-nostart.cbr")
       val bufferedSource = Source.fromURL(url)
       val result = Cabrillo(bufferedSource, url)
       result.url must beEqualTo(url)
-      result.errors must haveSize(1)
-      val error: CabrilloError = result.errors.head
-      error must beEqualTo(expectedError)
+      val errors = result.tagsWithErrors
+      errors must haveSize(1)
+      errors.head must beEqualTo(CabrilloError("START-OF-LOG"))
+      val unknownTags = result.unknownTags
+      unknownTags must haveSize(1)
+      unknownTags.head must beEqualTo(CabrilloError(1, "3.0","START-OF-LOGXYZZY", "Unknown tag: START-OF-LOGXYZZY"))
     }
     "bad start version" in {
       val expectedError: CabrilloError = CabrilloError(1,"2.0","START-OF-LOG","""START-OF-LOG is not "V3.0"""")
@@ -31,8 +33,8 @@ class CabrilloSpec extends Specification {
       val bufferedSource = Source.fromURL(url)
       val result = Cabrillo(bufferedSource, url)
       result.url must beEqualTo(url)
-      result.errors must haveSize(1)
-      val error: CabrilloError = result.errors.head
+      result.tagsWithErrors must haveSize(1)
+      val error: CabrilloError = result.tagsWithErrors.head
       error must beEqualTo(expectedError)
     }
 

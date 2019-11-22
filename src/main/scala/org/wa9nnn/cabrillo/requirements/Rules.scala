@@ -7,18 +7,10 @@ import org.wa9nnn.cabrillo.model.CabrilloTypes.Tag
 import org.wa9nnn.cabrillo.parsers.{DefaultTagParser, QsoTagParser_WFD, TagParser}
 
 
-/**
- *
- * @param tag         to be considered
- * @param cardinality how many are required.
- */
-case class Checkers(override val tag: String, override val cardinality: Cardinality = One) extends TagHandler(tag, cardinality) {
-  override def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
-    Seq.empty
-  }
-}
 
-class RequiredTags(val contestInfo: ContestInfo = new ContestInfoWFD) {
+class Rules(val contestInfo: ContestInfo = new ContestInfoWFD) {
+  def contains(tag: Tag): Boolean = map.contains(tag)
+
   implicit val ci: ContestInfo = contestInfo
 
   val handlers: Seq[TagHandler] = Seq(
@@ -58,10 +50,15 @@ class RequiredTags(val contestInfo: ContestInfo = new ContestInfoWFD) {
    * @throws IllegalArgumentException if tag is unknown
    */
   def handler(tag: Tag): TagHandler = {
-    map(tag)
+    try {
+      map(tag)
+    } catch {
+      case e: NoSuchElementException ⇒ throw new IllegalArgumentException
+    }
   }
 
   def get(tag: Tag): TagParser = {
     map.getOrElse(tag, new DefaultTagParser(tag))
   }
 }
+

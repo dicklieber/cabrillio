@@ -5,7 +5,7 @@ import org.specs2.mutable.Specification
 class ArrlSectionsSpec extends Specification {
   val arrlSections = new ArrlSections
   "ArrlSectionsSpec" should {
-    "check" >> {
+    "checkRule" >> {
       "ok" >> {
         arrlSections.check("IL")
         ok
