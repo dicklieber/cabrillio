@@ -2,6 +2,9 @@ Cabrillo file parser/validator library.
 
 * Initially handles Winter Field Day
 * Rules-based for each kind of tag
+	* Checks that:
+	* each tags rules are satisfied
+		* unexpected rules (not considered fatal)
 	* Cardinality rules (how often)
 		* One time
 		* Zero or one
@@ -17,3 +20,4 @@ Cabrillo file parser/validator library.
 	* Easy to hookup to database to drive contest QSO matching applications.
 	* Written in Scala
 	* Useable from command line or as an API from any JVM language.
+	* Open source, license to be determined.
