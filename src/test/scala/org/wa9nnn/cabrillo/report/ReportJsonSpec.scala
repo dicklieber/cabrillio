@@ -14,6 +14,8 @@ class ReportJsonSpec extends Specification {
     val result = Result(
       url = getClass.getResource("/wfd1.cbr"),
       duration = Duration.ofMinutes(42),
+      linesInFile = 100,
+      qsoCount = 80,
       tagsWithErrors = Seq(
         CabrilloError("XYZZY"),
       ),
@@ -28,6 +30,8 @@ class ReportJsonSpec extends Specification {
       string must beEqualTo ("""{
                                |  "url" : "file:/Users/dlieber/dev/ham/Cabrillo/target/scala-2.13/test-classes/wfd1.cbr",
                                |  "duration" : "PT42M",
+                               |  "linesInFile" : 100,
+                               |  "qsoCount" : 80,
                                |  "tagsWithErrors" : [ {
                                |    "lineNumber" : 0,
                                |    "body" : "",
@@ -50,6 +54,8 @@ class ReportJsonSpec extends Specification {
       string must beEqualTo ("""{
                                |  "url" : "file:/Users/dlieber/dev/ham/Cabrillo/target/scala-2.13/test-classes/wfd1.cbr",
                                |  "duration" : "PT42M",
+                               |  "linesInFile" : 100,
+                               |  "qsoCount" : 80,
                                |  "tagsWithErrors" : [ ],
                                |  "unknownTags" : [ {
                                |    "lineNumber" : 1,

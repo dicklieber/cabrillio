@@ -45,7 +45,7 @@ abstract class TagHandler(val tag: Tag, val cardinality: Cardinality = One) exte
     }
 
     (checkCardinality() ++ tagCheck(cabrillo))
-      .toSet.toSeq // deduplicate
+      .distinct // deduplicate
   }
 
   /**

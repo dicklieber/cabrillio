@@ -26,6 +26,18 @@ object CabrilloError {
       cause = cause
     )
   }
+  /**
+   * Convenience method to create an internal exception for a [[TagValue]].
+   * @param tagValue with the error
+   * @param cause cause.
+   */
+  def apply(tagValue: TagValue, cause: Exception): CabrilloError = {
+    new CabrilloError(lineNumber = tagValue.lineNumber,
+      body = tagValue.body,
+      tag = tagValue.tag,
+      cause = cause.toString
+    )
+  }
 
   /**
    * Create a missing tag error. lineNumber is 0 body is empty.

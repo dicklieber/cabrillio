@@ -4,7 +4,7 @@ package org.wa9nnn.cabrillo.requirements
 import org.wa9nnn.cabrillo.contests.ContestInfoWFD
 import org.wa9nnn.cabrillo.model.Cabrillo
 import org.wa9nnn.cabrillo.model.CabrilloTypes.Tag
-import org.wa9nnn.cabrillo.parsers.{DefaultTagParser, QsoTagParser_WFD, TagParser}
+import org.wa9nnn.cabrillo.parsers.{DefaultTagParser, QsoTagHandler_WFD, TagParser}
 
 
 
@@ -38,7 +38,7 @@ class Rules(val contestInfo: ContestInfo = new ContestInfoWFD) {
     AnyOneValue("ADDRESS-POSTALCODE"),
     AnyOneValue("ADDRESS-COUNTRY"),
     AnyOneValue("EMAIL"),
-    new QsoTagParser_WFD, //QSO
+    new QsoTagHandler_WFD, //QSO
     EndOfLog //"END-OF-LOG"
   )
   private val map: Map[Tag, TagHandler] = handlers.map(h ⇒ h.tag → h).toMap

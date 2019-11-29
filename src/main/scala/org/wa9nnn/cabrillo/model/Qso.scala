@@ -3,11 +3,12 @@ package org.wa9nnn.cabrillo.model
 
 import java.time.ZonedDateTime
 
-import org.wa9nnn.cabrillo.requirements.{FreqException, Frequencies, CabrilloError}
+import org.wa9nnn.cabrillo.requirements.{CabrilloError, ContestInfo, FreqException, Frequencies}
 
 import scala.util.Try
 
 trait Qso extends TagValue {
+
   def freq: String
 
   def mode: String
@@ -23,8 +24,8 @@ trait Qso extends TagValue {
       Frequencies.check(freq)
       Seq.empty
     } catch {
-      case ef: FreqException ⇒
-        Seq(CabrilloError(this, ef.getMessage))
+      case _: Exception ⇒
+        Seq(CabrilloError(this, s"""Bad band or freq: "$freq""""))
     }
   }
 }

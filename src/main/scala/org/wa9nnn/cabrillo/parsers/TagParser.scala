@@ -1,9 +1,9 @@
 
 package org.wa9nnn.cabrillo.parsers
 
-import org.wa9nnn.cabrillo.model.TagValue
 import org.wa9nnn.cabrillo.model.CabrilloTypes._
-import org.wa9nnn.cabrillo.requirements.CabrilloError
+import org.wa9nnn.cabrillo.model.TagValue
+import org.wa9nnn.cabrillo.requirements.{CabrilloError, ContestInfo}
 
 trait TagParser {
 
@@ -26,4 +26,12 @@ case class SimpleTag(tag: Tag, lineNumber: Int, body: String) extends TagValue {
     this(tag, lineBody.lineNumber, lineBody.body)
   }
   override def toString: String = body
+
+  /**
+   * Nothing to check in a [[SimpleTag]] any value is ok.]
+   * @return no errors.
+   */
+  override def check()(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+    Seq.empty
+  }
 }

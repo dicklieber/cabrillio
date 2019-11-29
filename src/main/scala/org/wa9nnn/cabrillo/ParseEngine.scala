@@ -13,8 +13,8 @@ import scala.io.BufferedSource
  */
 class ParseEngine(handlers:Rules) {
   private val lineRegx = """(.*)\s*:\s*(.*)""".r
-  //  private val parsers: Map[String, QsoTagParser_WFD] = Seq(
-  //    QsoTagParser_WFD.tag → new QsoTagParser_WFD
+  //  private val parsers: Map[String, QsoTagHandler_WFD] = Seq(
+  //    QsoTagHandler_WFD.tag → new QsoTagHandler_WFD
   //  ).toMap
 
   /**
