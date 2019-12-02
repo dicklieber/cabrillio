@@ -2,8 +2,14 @@
 package org.wa9nnn.cabrillo.model
 
 import org.wa9nnn.cabrillo.model.CabrilloTypes.{Tag, Tags}
+import org.wa9nnn.cabrillo.parsers.LineBody
 
-case class Cabrillo(data: Map[Tag, Seq[TagValue]]) {
+/**
+ * This is all the data from or for a Cabrillo file.
+ *
+ * @param data tag->Seq[TagValue]
+ */
+case class CabrilloDataProvider(data: Map[Tag, Seq[TagValue]]) {
   val inLineOrder: Seq[TagValue] = (for {
     seq ← data.values
     tv ← seq
@@ -15,7 +21,9 @@ case class Cabrillo(data: Map[Tag, Seq[TagValue]]) {
 
 
   /**
-   * get tags by tag name.
+   * Get tags by tag name.
+   * Most  [[org.wa9nnn.cabrillo.requirements.TagHandler.tagCheck()]] methods use this.
+   *
    * @param tag name.
    * @return
    */
@@ -29,8 +37,12 @@ case class Cabrillo(data: Map[Tag, Seq[TagValue]]) {
 
   def lineCount: Int = inLineOrder.size
 
-  def tags:Seq[Tag] = {
+  /**
+   *
+   * @return unique [[Tag]]s in file.
+   */
+  def tags: Seq[Tag] = {
     data.keys.toSeq
   }
-
 }
+

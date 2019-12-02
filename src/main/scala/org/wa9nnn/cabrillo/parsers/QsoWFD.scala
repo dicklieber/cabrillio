@@ -5,9 +5,9 @@ import java.time.ZonedDateTime
 
 import org.wa9nnn.cabrillo.model.CabrilloTypes.Tags
 import org.wa9nnn.cabrillo.model._
-import org.wa9nnn.cabrillo.requirements.{Any, CabrilloError, ContestInfo, TagHandler}
+import org.wa9nnn.cabrillo.requirements.{AnyNumber, CabrilloError, ContestInfo, TagHandler}
 
-class QsoTagHandler_WFD extends TagHandler("QSO", Any) {
+class QsoTagHandler_WFD extends TagHandler("QSO", AnyNumber) {
   override val tag: String = QsoTagHandler_WFD.tag
   private val mainp = """(\S+)\s+(\S+)\s+([\d\-]+\s+\d+)\s+(\S+\s+\S+\s+\S+)\s++(\S+\s+\S+\s+\S+)""".r()
 
@@ -31,8 +31,8 @@ class QsoTagHandler_WFD extends TagHandler("QSO", Any) {
   }
 
 
-  override def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
-    val tags: Tags = parsedCabrillo.apply(tag)
+  override def tagCheck(cabrilloData: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+    val tags: Tags = cabrilloData.apply(tag)
     tags.flatMap { tv: TagValue ⇒
       try {
         tv.check()

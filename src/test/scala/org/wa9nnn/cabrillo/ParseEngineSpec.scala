@@ -1,8 +1,8 @@
 package org.wa9nnn.cabrillo
 
 import org.wa9nnn.cabrillo.contests.ContestInfoWFD
-import org.wa9nnn.cabrillo.model.{Cabrillo, TagValue}
-import org.wa9nnn.cabrillo.requirements.{CabrilloError, CheckEngine, ContestInfo, Rules}
+import org.wa9nnn.cabrillo.model.TagValue
+import org.wa9nnn.cabrillo.requirements.{CheckEngine, Rules}
 
 import scala.io.Source
 
@@ -12,7 +12,7 @@ class ParseEngineSpec extends org.specs2.mutable.Specification {
   "Parse Engine" >> {
     val parseEngine = new ParseEngine(requiredTags)
     val bufferedSource = Source.fromResource("wfd1.cbr")
-    val taggedValues: Cabrillo = parseEngine.parse(bufferedSource)
+    val taggedValues = parseEngine.parse(bufferedSource)
     "parse" >> {
       val start: Seq[TagValue] = taggedValues("START-OF-LOG")
       start must haveLength(1)

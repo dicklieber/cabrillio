@@ -7,8 +7,8 @@ import org.wa9nnn.cabrillo.parsers.LineBody
 trait ContestInfo {
   /**
    *
-   * @param location
-   * @throws Exception
+   * @param location of interest.
+   * @throws Exception on error
    */
   def validateLocation(location: String): Unit
 

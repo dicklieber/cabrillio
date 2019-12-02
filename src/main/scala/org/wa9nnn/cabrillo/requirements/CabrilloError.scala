@@ -15,7 +15,7 @@ case class CabrilloError(val lineNumber: Int, val body: String, tag: Tag, cause:
 
 object CabrilloError {
   /**
-   * Convenience method to create an error for a [[TagValue]].
+   * Convenience method to create an error for a [[org.wa9nnn.cabrillo.model.TagValue]].
    * @param tagValue with the error
    * @param cause description.
    */
@@ -27,7 +27,7 @@ object CabrilloError {
     )
   }
   /**
-   * Convenience method to create an internal exception for a [[TagValue]].
+   * Convenience method to create an internal exception for a [[org.wa9nnn.cabrillo.model.TagValue]].
    * @param tagValue with the error
    * @param cause cause.
    */

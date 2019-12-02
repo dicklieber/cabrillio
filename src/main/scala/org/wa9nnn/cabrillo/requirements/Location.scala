@@ -1,11 +1,11 @@
 
 package org.wa9nnn.cabrillo.requirements
 
-import org.wa9nnn.cabrillo.model.{Cabrillo, TagValue}
+import org.wa9nnn.cabrillo.model.{ CabrilloDataProvider, TagValue}
 
 case class Location()(implicit contestInfo: ContestInfo) extends TagHandler("LOCATION") {
 
-  override def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  override def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
 
     val head: TagValue = parsedCabrillo(tag).head
     try {
@@ -22,7 +22,7 @@ case class Location()(implicit contestInfo: ContestInfo) extends TagHandler("LOC
 
 case class Section()(implicit ontestInfo: ContestInfo) extends TagHandler("ARRL-SECTION") {
 
-  override def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  override def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
 
     val head = parsedCabrillo(tag).head
     try {
@@ -39,7 +39,7 @@ case class Section()(implicit ontestInfo: ContestInfo) extends TagHandler("ARRL-
 
 case class Category()(implicit contestInfo: ContestInfo) extends TagHandler("CATEGORY") {
 
-  override def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  override def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
 
     val head = parsedCabrillo(tag).head
     try {

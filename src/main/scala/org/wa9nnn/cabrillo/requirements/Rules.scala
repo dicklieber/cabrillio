@@ -2,11 +2,8 @@
 package org.wa9nnn.cabrillo.requirements
 
 import org.wa9nnn.cabrillo.contests.ContestInfoWFD
-import org.wa9nnn.cabrillo.model.Cabrillo
 import org.wa9nnn.cabrillo.model.CabrilloTypes.Tag
 import org.wa9nnn.cabrillo.parsers.{DefaultTagParser, QsoTagHandler_WFD, TagParser}
-
-
 
 class Rules(val contestInfo: ContestInfo = new ContestInfoWFD) {
   def contains(tag: Tag): Boolean = map.contains(tag)
@@ -21,6 +18,18 @@ class Rules(val contestInfo: ContestInfo = new ContestInfoWFD) {
     new Location, // LOCATION
     new Section, //ARRL-SECTION
     new Category, //"CATEGORY",
+    Choices("CATEGORY-OVERLAY", Set(
+      "CLASSIC",
+      "ROOKIE",
+      "TB-WIRES",
+      "BAND-LIMITED",
+      "NOVICE-TECH",
+      "OVER-50")),
+    Choices("CATEGORY-TIME", Set(
+      "6-HOURS",
+      "12-HOURS",
+      "24-HOURS"
+    )),
     AnyOneValue("CATEGORY-OPERATOR"),
     AnyOneValue("CATEGORY-STATION"),
     AnyOneValue("CATEGORY-TRANSMITTER"),
@@ -30,6 +39,7 @@ class Rules(val contestInfo: ContestInfo = new ContestInfoWFD) {
     AnyOneValue("CATEGORY-MODE"),
     OneOrMoreValues("SOAPBOX"),
     AnyOneValue("CLAIMED-SCORE"),
+    AnyOneValue("CLUB"),
     AnyOneValue("OPERATORS"),
     AnyOneValue("NAME"),
     AnyOneValue("ADDRESS"),

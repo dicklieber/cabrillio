@@ -17,9 +17,10 @@ sealed trait Cardinality {
     try {
       doCheck(tag, tags)
       Seq.empty
-    } catch {case c: CardinalityException ⇒
-       c.toErrors
-    case x:Exception ⇒
+    } catch {
+      case c: CardinalityException ⇒
+        c.toErrors
+      case x: Exception ⇒
         throw x
     }
   }
@@ -27,7 +28,7 @@ sealed trait Cardinality {
   def doCheck(tag: Tag, tags: Tags): Unit
 }
 
-case object Optional extends Cardinality {
+case object OneOrNone extends Cardinality {
   override def doCheck(tag: Tag, tags: Tags): Unit = {
     if (tags.size > 1) {
       throw new CardinalityException("Only zero or one of this tag allowed", tag, tags)
@@ -43,15 +44,15 @@ case object One extends Cardinality {
   }
 }
 
-case object Any extends Cardinality {
+case object AnyNumber extends Cardinality {
   override def doCheck(tag: Tag, tags: Tags): Unit = {
-    // this cannot fail
+    // can't fail
   }
 }
 
 case object OneOrMore extends Cardinality {
   override def doCheck(tag: Tag, tags: Tags): Unit = {
-    if (tags.size < 1) {
+    if (tags.isEmpty) {
       throw new CardinalityException("Must have one or more this tag", tag, tags)
     }
   }

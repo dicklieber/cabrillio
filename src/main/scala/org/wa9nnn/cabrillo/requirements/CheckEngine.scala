@@ -1,7 +1,7 @@
 
 package org.wa9nnn.cabrillo.requirements
 
-import org.wa9nnn.cabrillo.model.{Cabrillo, TagValue}
+import org.wa9nnn.cabrillo.model.{CabrilloDataProvider, TagValue}
 
 /**
  * Apply the rules
@@ -14,7 +14,7 @@ case class CheckEngine(rules: Rules)(implicit contestInfo: ContestInfo) {
    * @param cabrillo data
    * @return (tagswithErrors, unknownTags)
    */
-  def check(cabrillo: Cabrillo): (Seq[CabrilloError],Seq[CabrilloError]) = {
+  def check(cabrillo: CabrilloDataProvider): (Seq[CabrilloError],Seq[CabrilloError]) = {
 
     val requiredErrors = rules.handlers.flatMap { th ⇒
       th.checkRule(cabrillo)

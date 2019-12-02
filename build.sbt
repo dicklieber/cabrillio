@@ -1,9 +1,11 @@
 import NativePackagerHelper._
 maintainer := "wa9nnn@u505.com"
 
-name := "Cabrillo"
+name := "cabrillo"
 
-version := "0.1"
+organization := "org.wa9nnn"
+
+version := "0.2-SNAPSHOT"
 
 enablePlugins(JavaAppPackaging, JDKPackagerPlugin)
 
@@ -22,28 +24,3 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-json" % "2.8.0",
   "com.github.scopt" %% "scopt" % "4.0.0-RC2"
 )
-
-// Example of specifying a fallback location of `ant-javafx.jar` if plugin can't find it.
-//(antPackagerTasks in JDKPackager) := (antPackagerTasks in JDKPackager).value orElse {
-//  for {
-//    f <- Some(file("/usr/lib/jvm/java-8-oracle/lib/ant-javafx.jar")) if f.exists()
-//  } yield f
-//}
-//
-//mappings in Universal ++= {
-//  val jresDir = Path.userHome / ".jre"
-//  val jreLink = "JRE64_1.8"
-//  val linux64Jre = jresDir.toPath.resolve("linux64")
-//  directory(linux64Jre.toFile).map { j =>
-//    j._1 -> j._2.replace(jreLink, "jre")
-//  }
-//}
-
-//mappings in Universal ++= {
-//  val jresDir = Path.userHome / $JAVA_HOME
-////  val jresDir = Path.userHome / ".jre"
-//  val linux64Jre = jresDir.toPath.resolve("linux64")
-//  directory(linux64Jre.toFile).map { j =>
-//    j._1 -> j._2.replace("jreLink", "jre")
-//  }
-//}

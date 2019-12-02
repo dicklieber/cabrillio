@@ -5,9 +5,9 @@ import org.wa9nnn.cabrillo.requirements.CabrilloError
 
 import scala.io.Source
 
-class CabrilloSpec extends Specification {
+class CabrilloDataSpec extends Specification {
 
-  "CabrilloSpec" should {
+  "CabrilloDataSpec" should {
     "apply" in {
       val url = getClass.getResource("/wfd1.cbr")
       val bufferedSource = Source.fromURL(url)

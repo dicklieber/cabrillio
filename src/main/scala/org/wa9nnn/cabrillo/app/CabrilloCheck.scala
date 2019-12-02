@@ -73,7 +73,7 @@ object CabrilloCheck {
 //    val path = Paths.get(cabrilloFile)
 //    val source = Source.fromFile(path.toFile, "ASCII")
 //    val url: URL = new URL("file", "", path.toString)
-//    val result: Result = Cabrillo(source, url)
+//    val result: Result = CabrilloData(source, url)
 //    Using(new PrintWriter(System.out)) { writer ⇒
 //      ReportJson.generate(result, writer)
 //    }

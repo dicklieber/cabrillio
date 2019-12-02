@@ -1,11 +1,11 @@
 
 package org.wa9nnn.cabrillo.requirements
 
-import org.wa9nnn.cabrillo.model.{Cabrillo, TagValue}
+import org.wa9nnn.cabrillo.model.{ CabrilloDataProvider, TagValue}
 
 object Contest extends TagHandler("CONTEST") {
 
-  override def tagCheck(parsedCabrillo: Cabrillo)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  override def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     logger.debug(s"checking $tag")
     val tagValues: Seq[TagValue] = parsedCabrillo(tag)
     val head = tagValues.head
