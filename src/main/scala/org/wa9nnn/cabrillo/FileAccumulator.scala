@@ -6,8 +6,11 @@ import org.wa9nnn.cabrillo.model.TagValue
 
 import scala.collection.concurrent.TrieMap
 
+/**
+ * Collects [[TagValue]]s organized by [[Tag]]
+ */
 class FileAccumulator {
-  private val tagAccumulators = new TrieMap[String, TagAccumulator]()
+  private val tagAccumulators = new TrieMap[Tag, TagAccumulator]()
 
   def accumulate(value: TagValue): Unit = {
     tagAccumulators

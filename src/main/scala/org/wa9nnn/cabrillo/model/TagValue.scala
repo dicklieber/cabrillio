@@ -15,6 +15,12 @@ trait TagValue {
   def body: String
 }
 
+/**
+ * This has the value for most tags other than QSO.
+ * @param tag lValue
+ * @param lineNumber where it occured within the file.
+ * @param body rValue
+ */
 case class SimpleTagValue(tag: Tag, lineNumber: Int, body: String) extends TagValue {
   def this(tag: Tag, lineBody: LineBody) {
     this(tag, lineBody.lineNumber, lineBody.body)

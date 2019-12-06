@@ -51,7 +51,7 @@ class Rules(val contestInfo: ContestInfo = new ContestInfoWFD) {
     new QsoTagHandler_WFD, //QSO
     EndOfLog //"END-OF-LOG"
   )
-  private val map: Map[Tag, TagHandler] = handlers.map(h ⇒ h.tag → h).toMap
+  private val map: Map[Tag, TagHandler] = handlers.map(h => h.tag -> h).toMap
 
   /**
    *
@@ -63,7 +63,7 @@ class Rules(val contestInfo: ContestInfo = new ContestInfoWFD) {
     try {
       map(tag)
     } catch {
-      case e: NoSuchElementException ⇒ throw new IllegalArgumentException
+      case _: NoSuchElementException ⇒ throw new IllegalArgumentException
     }
   }
 

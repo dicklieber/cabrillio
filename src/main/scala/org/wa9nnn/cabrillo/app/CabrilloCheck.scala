@@ -1,17 +1,15 @@
 
 package org.wa9nnn.cabrillo.app
 
-import java.io.ObjectInputFilter.Config
-import java.io.{File, PrintWriter, StringWriter}
+import java.io.{File, PrintWriter}
 import java.net.URL
-import java.nio.file.Paths
 
 import org.wa9nnn.cabrillo.report.ReportJson
 import org.wa9nnn.cabrillo.{Cabrillo, Result}
+import scopt.{OParser, OParserBuilder}
 
 import scala.io.Source
 import scala.util.Using
-import scopt.OParser
 
 object CabrilloCheck {
 
@@ -21,20 +19,10 @@ object CabrilloCheck {
                      in: File = new File("."),
                      out: File = new File("."),
                      syntax: String = "json",
-//                     xyz: Boolean = false,
-//                     libName: String = "",
-//                     maxCount: Int = -1,
-//                     verbose: Boolean = false,
-//                     debug: Boolean = false,
-//                     mode: String = "",
-//                     files: Seq[File] = Seq(),
-//                     keepalive: Boolean = false,
-//                     jars: Seq[File] = Seq(),
-//                     kwargs: Map[String, String] = Map()
                    )
 
-  val builder = OParser.builder[Config]
-  val parser1 = {
+  val builder: OParserBuilder[Config] = OParser.builder[Config]
+  val parser1: OParser[Unit, Config] = {
     import builder._
     OParser.sequence(
       programName("cabrillo check"),
@@ -68,15 +56,6 @@ object CabrilloCheck {
         println("bad cli")
       // arguments are bad, error message will have been displayed
     }
-
-//    val cabrilloFile = args(0)
-//    val path = Paths.get(cabrilloFile)
-//    val source = Source.fromFile(path.toFile, "ASCII")
-//    val url: URL = new URL("file", "", path.toString)
-//    val result: Result = CabrilloData(source, url)
-//    Using(new PrintWriter(System.out)) { writer ⇒
-//      ReportJson.generate(result, writer)
-//    }
 
   }
 }

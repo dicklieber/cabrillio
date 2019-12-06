@@ -3,7 +3,7 @@ package org.wa9nnn.cabrillo.requirements
 
 import com.typesafe.scalalogging.LazyLogging
 import org.wa9nnn.cabrillo.model.CabrilloTypes._
-import org.wa9nnn.cabrillo.model.{ CabrilloDataProvider, SimpleTagValue, TagValue}
+import org.wa9nnn.cabrillo.model.{ CabrilloData, SimpleTagValue, TagValue}
 import org.wa9nnn.cabrillo.parsers.{LineBody, TagParser}
 
 /**
@@ -25,9 +25,9 @@ abstract class TagHandler(val tag: Tag, val cardinality: Cardinality = One) exte
    * @param cabrillo the incoming or parsed data.
    * @return empty if no error otherwise one or more things that are evil.
    */
-  final def checkRule(cabrillo: CabrilloDataProvider    )(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  final def checkRule(cabrillo: CabrilloData    )(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     logger.debug(s"checking $tag")
-    val tvs: Tags = cabrillo.apply(tag)
+    val tvs: TagValues = cabrillo.apply(tag)
 
     /**
      * Do we have the right number of instances of this tag.
@@ -52,7 +52,7 @@ abstract class TagHandler(val tag: Tag, val cardinality: Cardinality = One) exte
    * The the tag-specific rule checking.
    * @return
    */
-  def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError]
+  def tagCheck(parsedCabrillo: CabrilloData)(implicit contestInfo: ContestInfo): Seq[CabrilloError]
 
   def failure(tagValue: TagValue, cause: String): Seq[CabrilloError] = {
     logger.debug(s"failure: $cause")
@@ -63,12 +63,12 @@ abstract class TagHandler(val tag: Tag, val cardinality: Cardinality = One) exte
 // These classes are convenience class for tags where this no checking of the body
 // For tags that actually have to check content, [[TagHandler]] should be subclassed.
 case class AnyOneValue(override val tag: Tag) extends TagHandler(tag,  OneOrNone) {
-  override def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  override def tagCheck(parsedCabrillo: CabrilloData)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     Seq.empty
   }
 }
 case class AnyZeroOrOne(override val tag: Tag) extends TagHandler(tag, One) {
-  override def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  override def tagCheck(parsedCabrillo: CabrilloData)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     Seq.empty
   }
 }
@@ -80,7 +80,7 @@ case class AnyZeroOrOne(override val tag: Tag) extends TagHandler(tag, One) {
 //}
 
 case class OneOrMoreValues(override val tag: Tag) extends TagHandler(tag: Tag, OneOrMore) {
-  override def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  override def tagCheck(parsedCabrillo: CabrilloData)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     Seq.empty
   }
 }

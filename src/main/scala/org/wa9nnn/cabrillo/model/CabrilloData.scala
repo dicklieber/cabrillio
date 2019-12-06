@@ -1,15 +1,14 @@
 
 package org.wa9nnn.cabrillo.model
 
-import org.wa9nnn.cabrillo.model.CabrilloTypes.{Tag, Tags}
-import org.wa9nnn.cabrillo.parsers.LineBody
+import org.wa9nnn.cabrillo.model.CabrilloTypes.{Tag, TagValues}
 
 /**
  * This is all the data from or for a Cabrillo file.
  *
  * @param data tag->Seq[TagValue]
  */
-case class CabrilloDataProvider(data: Map[Tag, Seq[TagValue]]) {
+case class CabrilloData(data: Map[Tag, Seq[TagValue]]) {
   val inLineOrder: Seq[TagValue] = (for {
     seq ← data.values
     tv ← seq
@@ -19,7 +18,6 @@ case class CabrilloDataProvider(data: Map[Tag, Seq[TagValue]]) {
     .toSeq
     .sortBy(_.lineNumber)
 
-
   /**
    * Get tags by tag name.
    * Most  [[org.wa9nnn.cabrillo.requirements.TagHandler.tagCheck()]] methods use this.
@@ -27,7 +25,7 @@ case class CabrilloDataProvider(data: Map[Tag, Seq[TagValue]]) {
    * @param tag name.
    * @return
    */
-  def apply(tag: Tag): Tags = {
+  def apply(tag: Tag): TagValues = {
     data.getOrElse(tag, Seq.empty)
   }
 

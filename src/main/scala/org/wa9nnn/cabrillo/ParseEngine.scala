@@ -1,7 +1,7 @@
 
 package org.wa9nnn.cabrillo
 
-import org.wa9nnn.cabrillo.model.CabrilloDataProvider
+import org.wa9nnn.cabrillo.model.CabrilloData
 import org.wa9nnn.cabrillo.parsers.LineBody
 import org.wa9nnn.cabrillo.requirements.Rules
 
@@ -21,7 +21,7 @@ class ParseEngine(handlers:Rules) {
    * @param source to be processed. e.g.{{ val bufferedSource = Source.fromResource("wfd1.cbr")}}
    * @return map of tag name to values.
    */
-  def parse(source: BufferedSource): CabrilloDataProvider = {
+  def parse(source: BufferedSource): CabrilloData = {
     val fileAccumulator = new FileAccumulator
 
     source.getLines().zipWithIndex.foreach { t ⇒
@@ -31,6 +31,6 @@ class ParseEngine(handlers:Rules) {
       fileAccumulator.accumulate(handlers.get(tag).parse(LineBody(lineNumber + 1, body.trim)))
     }
 
-    CabrilloDataProvider(fileAccumulator.result)
+    CabrilloData(fileAccumulator.result)
   }
 }

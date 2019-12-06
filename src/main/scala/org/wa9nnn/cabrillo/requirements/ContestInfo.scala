@@ -1,7 +1,7 @@
 
 package org.wa9nnn.cabrillo.requirements
 
-import org.wa9nnn.cabrillo.model.{Exchange, Qso, TagValue}
+import org.wa9nnn.cabrillo.model.{Exchange, Qso}
 import org.wa9nnn.cabrillo.parsers.LineBody
 
 trait ContestInfo {

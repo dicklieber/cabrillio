@@ -1,7 +1,7 @@
 
 package org.wa9nnn.cabrillo.requirements
 
-import org.wa9nnn.cabrillo.model.CabrilloTypes.{Tag, Tags}
+import org.wa9nnn.cabrillo.model.CabrilloTypes.{Tag, TagValues}
 
 
 /**
@@ -13,7 +13,7 @@ sealed trait Cardinality {
    * @param tags for a specific tag name.
    * @return the tags if ok, otherwise a [[CardinalityException]].
    */
-  def check(tag: Tag, tags: Tags): Seq[CabrilloError] = {
+  def check(tag: Tag, tags: TagValues): Seq[CabrilloError] = {
     try {
       doCheck(tag, tags)
       Seq.empty
@@ -25,11 +25,11 @@ sealed trait Cardinality {
     }
   }
 
-  def doCheck(tag: Tag, tags: Tags): Unit
+  def doCheck(tag: Tag, tags: TagValues): Unit
 }
 
 case object OneOrNone extends Cardinality {
-  override def doCheck(tag: Tag, tags: Tags): Unit = {
+  override def doCheck(tag: Tag, tags: TagValues): Unit = {
     if (tags.size > 1) {
       throw new CardinalityException("Only zero or one of this tag allowed", tag, tags)
     }
@@ -37,7 +37,7 @@ case object OneOrNone extends Cardinality {
 }
 
 case object One extends Cardinality {
-  override def doCheck(tag: Tag, tags: Tags): Unit = {
+  override def doCheck(tag: Tag, tags: TagValues): Unit = {
     if (tags.size != 1) {
       throw new CardinalityException("Require One tag", tag, tags)
     }
@@ -45,20 +45,20 @@ case object One extends Cardinality {
 }
 
 case object AnyNumber extends Cardinality {
-  override def doCheck(tag: Tag, tags: Tags): Unit = {
+  override def doCheck(tag: Tag, tags: TagValues): Unit = {
     // can't fail
   }
 }
 
 case object OneOrMore extends Cardinality {
-  override def doCheck(tag: Tag, tags: Tags): Unit = {
+  override def doCheck(tag: Tag, tags: TagValues): Unit = {
     if (tags.isEmpty) {
       throw new CardinalityException("Must have one or more this tag", tag, tags)
     }
   }
 }
 
-class CardinalityException(message: String, tag: Tag, tags: Tags) extends Exception(message) {
+class CardinalityException(message: String, tag: Tag, tags: TagValues) extends Exception(message) {
   def toErrors: Seq[CabrilloError] = {
     if (tags.isEmpty)
       Seq(CabrilloError(tag))

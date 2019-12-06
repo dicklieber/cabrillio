@@ -1,22 +1,22 @@
 
 package org.wa9nnn.cabrillo.requirements
 
-import org.wa9nnn.cabrillo.model.{CabrilloDataProvider, TagValue}
+import org.wa9nnn.cabrillo.model.{CabrilloData, TagValue}
 
 /**
  * Apply the rules
  * @param rules to be checked against.
  * @param contestInfo specific to this contest
  */
-case class CheckEngine(rules: Rules)(implicit contestInfo: ContestInfo) {
+case class RulesEngine(rules: Rules)(implicit contestInfo: ContestInfo) {
   /**
    *
    * @param cabrillo data
-   * @return (tagswithErrors, unknownTags)
+   * @return (ruleErrors, unknownTagsErrors)
    */
-  def check(cabrillo: CabrilloDataProvider): (Seq[CabrilloError],Seq[CabrilloError]) = {
+  def check(cabrillo: CabrilloData): (Seq[CabrilloError],Seq[CabrilloError]) = {
 
-    val requiredErrors = rules.handlers.flatMap { th ⇒
+    val ruleErrors = rules.handlers.flatMap { th ⇒
       th.checkRule(cabrillo)
     }
     val unknownTagsErrors = cabrillo.inLineOrder.flatMap { tv: TagValue ⇒
@@ -25,6 +25,6 @@ case class CheckEngine(rules: Rules)(implicit contestInfo: ContestInfo) {
       else
         Seq(CabrilloError(tv, s"Unknown tag: ${tv.tag}"))
     }
-    requiredErrors → unknownTagsErrors
+    ruleErrors -> unknownTagsErrors
   }
 }

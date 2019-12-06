@@ -1,7 +1,7 @@
 
 package org.wa9nnn.cabrillo.requirements
 
-import org.wa9nnn.cabrillo.model.CabrilloDataProvider
+import org.wa9nnn.cabrillo.model.CabrilloData
 
 class CategoryOverlay() extends TagHandler("CATEGORY-OVERLAY", OneOrMore) {
   /**
@@ -9,7 +9,7 @@ class CategoryOverlay() extends TagHandler("CATEGORY-OVERLAY", OneOrMore) {
    *
    * @return any errors
    */
-  override def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  override def tagCheck(parsedCabrillo: CabrilloData)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
 throw new NotImplementedError()
   }
 }

@@ -5,21 +5,21 @@ import java.net.URL
 import java.time.{Duration, Instant, LocalDateTime}
 
 import org.wa9nnn.cabrillo.contests.ContestInfoWFD
-import org.wa9nnn.cabrillo.requirements.{CabrilloError, CheckEngine, Rules}
+import org.wa9nnn.cabrillo.requirements.{CabrilloError, RulesEngine, Rules}
 
 import scala.io.BufferedSource
 
 object Cabrillo {
-  val requiredTags = new Rules()
+  val rules = new Rules()
 
   def apply(source: BufferedSource, url: URL): Result = {
     val start = Instant.now
     implicit val constestInfo = new ContestInfoWFD
-    val parseEngine = new ParseEngine(requiredTags)
+    val parseEngine = new ParseEngine(rules)
     val parsedCabrillo = parseEngine.parse(source)
-    val checkEngine = CheckEngine(requiredTags)
+    val checkEngine = RulesEngine(rules)
 
-    val (errors: Seq[CabrilloError], unknows: Seq[CabrilloError]) = checkEngine.check(parsedCabrillo)
+    val (errors: Seq[CabrilloError], unknowns: Seq[CabrilloError]) = checkEngine.check(parsedCabrillo)
 
     val qsoCount = parsedCabrillo.apply("QSO").size
 
@@ -28,7 +28,7 @@ object Cabrillo {
       duration = duration,
       linesInFile = parsedCabrillo.inLineOrder.size,
       qsoCount = qsoCount,
-      errors, unknows)
+      errors, unknowns)
   }
 }
 

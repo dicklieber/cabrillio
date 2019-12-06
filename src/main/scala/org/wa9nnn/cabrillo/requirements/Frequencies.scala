@@ -2,7 +2,6 @@
 package org.wa9nnn.cabrillo.requirements
 
 import com.typesafe.scalalogging.LazyLogging
-import org.wa9nnn.cabrillo.CabrilloException
 
 /**
  * See http://wwrof.org/cabrillo/cabrillo-qso-templates/ "freq"

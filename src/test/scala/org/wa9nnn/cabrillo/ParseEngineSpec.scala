@@ -2,7 +2,7 @@ package org.wa9nnn.cabrillo
 
 import org.wa9nnn.cabrillo.contests.ContestInfoWFD
 import org.wa9nnn.cabrillo.model.TagValue
-import org.wa9nnn.cabrillo.requirements.{CheckEngine, Rules}
+import org.wa9nnn.cabrillo.requirements.{RulesEngine, Rules}
 
 import scala.io.Source
 
@@ -19,7 +19,7 @@ class ParseEngineSpec extends org.specs2.mutable.Specification {
       start.head.tag must beEqualTo("START-OF-LOG")
     }
     "checkRule" >> {
-      val checkEngine = new CheckEngine(requiredTags)
+      val checkEngine = new RulesEngine(requiredTags)
       val errors = checkEngine.check(taggedValues)
       errors._1 must beEmpty
       errors._2 must beEmpty

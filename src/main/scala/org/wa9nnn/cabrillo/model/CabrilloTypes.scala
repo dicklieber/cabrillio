@@ -9,7 +9,7 @@ import scala.util.{Failure, Try}
  */
 object CabrilloTypes {
   type Tag = String
-  type Tags = Seq[TagValue]
-  type TryTags = Try[Tags]
-  type TryTagsFailure = Failure[Tags]
+  type TagValues = Seq[TagValue]
+  type TryTags = Try[TagValues]
+  type TryTagsFailure = Failure[TagValues]
 }

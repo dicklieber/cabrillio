@@ -11,8 +11,11 @@ import org.wa9nnn.cabrillo.model.TagValue
  * @param tag of interest.
  * @param cause description of what is wrong.
  */
-case class CabrilloError(val lineNumber: Int, val body: String, tag: Tag, cause: String)
+case class CabrilloError(lineNumber: Int, body: String, tag: Tag, cause: String)
 
+/**
+ * Companion object to help create errors.
+ */
 object CabrilloError {
   /**
    * Convenience method to create an error for a [[org.wa9nnn.cabrillo.model.TagValue]].
@@ -27,7 +30,7 @@ object CabrilloError {
     )
   }
   /**
-   * Convenience method to create an internal exception for a [[org.wa9nnn.cabrillo.model.TagValue]].
+   * Convenience method to create an error from an exception for a [[org.wa9nnn.cabrillo.model.TagValue]].
    * @param tagValue with the error
    * @param cause cause.
    */

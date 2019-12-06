@@ -1,10 +1,10 @@
 
 package org.wa9nnn.cabrillo.requirements
 
-import org.wa9nnn.cabrillo.model.{ CabrilloDataProvider, TagValue}
+import org.wa9nnn.cabrillo.model.{ CabrilloData, TagValue}
 
 /**
- * A reusable tag handler where there is a fixed set of allowable values.
+ * A reusable tag handler where there is a fixed set of allowable values for the tag.
  *
  * @param tag         of interest
  * @param choices     allowed values
@@ -39,7 +39,7 @@ case class Choices(override val tag: String, choices: Set[String], ignoreCase: B
    *
    * @return any errors
    */
-  override def tagCheck(parsedCabrillo: CabrilloDataProvider)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
+  override def tagCheck(parsedCabrillo: CabrilloData)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     parsedCabrillo.apply(tag).flatMap { tv ⇒
       contains(tv)
     }

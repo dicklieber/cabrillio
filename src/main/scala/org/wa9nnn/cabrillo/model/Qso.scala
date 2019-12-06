@@ -3,9 +3,7 @@ package org.wa9nnn.cabrillo.model
 
 import java.time.ZonedDateTime
 
-import org.wa9nnn.cabrillo.requirements.{CabrilloError, ContestInfo, FreqException, Frequencies}
-
-import scala.util.Try
+import org.wa9nnn.cabrillo.requirements.{CabrilloError, Frequencies}
 
 trait Qso extends TagValue {
 

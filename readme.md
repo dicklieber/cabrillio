@@ -21,3 +21,13 @@ Cabrillo file parser/validator library.
 	* Written in Scala
 	* Useable from command line or as an API from any JVM language.
 	* Open source, license to be determined.
+* Building
+    * SNAPSHOT build and publish the jar to the local ivy repository.
+        $ sbt packageLocal
+    * Release build
+        build.sbt will not, currently publish to github packages. todo use https://github.com/sbt/sbt-release
+        * Remove -SNAPSHOT from version in build.sbt
+        * Commit & tag build
+        * sbt package create jar: target/scala-2.13/cabrillo_2.13-0.2.1.jar
+        * bump version number and add back -SNAPSHOT suffix.
+        * Commit
