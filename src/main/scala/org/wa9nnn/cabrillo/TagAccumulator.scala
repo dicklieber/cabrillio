@@ -7,7 +7,7 @@ import org.wa9nnn.cabrillo.model.TagValue
 /**
  * Collects [[TagValue]]s for one [[Tag]].
  *
- * @param tag that this will accumulate.
+ * @param tag that this will apply.
  */
 class TagAccumulator(tag: Tag) {
   private val builder = Seq.newBuilder[TagValue]

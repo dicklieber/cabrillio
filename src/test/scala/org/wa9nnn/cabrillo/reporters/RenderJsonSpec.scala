@@ -1,4 +1,4 @@
-package org.wa9nnn.cabrillo.report
+package org.wa9nnn.cabrillo.reporters
 
 import java.io.{PrintWriter, StringWriter}
 import java.net.URL
@@ -8,9 +8,9 @@ import org.specs2.mutable.Specification
 import org.wa9nnn.cabrillo.Result
 import org.wa9nnn.cabrillo.requirements.CabrilloError
 
-class ReportJsonSpec extends Specification {
+class RenderJsonSpec extends Specification {
 
-  "ReportJsonSpec" >> {
+  "RenderJsonSpec" >> {
     val result = Result(
       url = getClass.getResource("/wfd1.cbr"),
       duration = Duration.ofMinutes(42),

@@ -12,6 +12,7 @@ class CabrilloDataSpec extends Specification {
       val url = getClass.getResource("/wfd1.cbr")
       val bufferedSource = Source.fromURL(url)
       val result = Cabrillo(bufferedSource, url)
+      println(s"result: $result")
       result.url must beEqualTo(url)
       result.tagsWithErrors must beEmpty
     }

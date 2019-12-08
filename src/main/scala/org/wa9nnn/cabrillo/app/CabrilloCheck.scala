@@ -4,7 +4,7 @@ package org.wa9nnn.cabrillo.app
 import java.io.{File, PrintWriter}
 import java.net.URL
 
-import org.wa9nnn.cabrillo.report.ReportJson
+import org.wa9nnn.cabrillo.reporters.ReportJson
 import org.wa9nnn.cabrillo.{Cabrillo, Result}
 import scopt.{OParser, OParserBuilder}
 

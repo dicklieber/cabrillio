@@ -40,7 +40,7 @@ case class CabrilloData(data: Map[Tag, Seq[TagValue]]) {
    * @return unique [[Tag]]s in file.
    */
   def tags: Seq[Tag] = {
-    data.keys.toSeq
+    data.keys.toSeq.sorted
   }
 }
 

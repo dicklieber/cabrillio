@@ -1,7 +1,7 @@
 
 package org.wa9nnn.cabrillo.parsers
 
-import java.time.ZonedDateTime
+import java.time.{LocalDateTime, ZoneId, ZoneOffset, ZonedDateTime}
 
 import org.wa9nnn.cabrillo.model.CabrilloTypes.{Tag, TagValues}
 import org.wa9nnn.cabrillo.model._
@@ -18,7 +18,7 @@ class QsoTagHandler_WFD extends TagHandler("QSO", AnyNumber) {
       val mainRegx(sFreq, sMode, sDateTime, sSent, sReceived) = body
       val lineNumber = lineBody.lineNumber
       val zdt: ZonedDateTime = DateTimeParser(lineNumber, sDateTime)
-      QSO_WFD( lineNumber, body, sFreq, sMode, zdt, toExchange(sSent), toExchange(sReceived))
+      QSO_WFD(lineNumber, body, sFreq, sMode, zdt, toExchange(sSent), toExchange(sReceived))
     } catch {
       case _: Exception ⇒
         QSO_NoParse(tag, lineBody.lineNumber, body)
@@ -53,21 +53,24 @@ object QsoTagHandler_WFD {
   )
 }
 
-case class Exchange_WFD(callsign: String, category: String, section: String) extends Exchange
+case class Exchange_WFD(callsign: String, category: String, section: String) extends Exchange {
+  override def toString: Tag = s"$callsign $category $section"
+}
 
 case object ExchangeNoParse extends Exchange
 
 /**
  * Normal result of parsing a QSO
+ *
  * @param lineNumber where in file.
- * @param body lValue
- * @param freq freq value.
- * @param mode mode string.
- * @param stamp when QSO occurred.
- * @param sent exchange ghat was sent.
- * @param received exchangfe that was received.
+ * @param body       lValue
+ * @param freq       freq value.
+ * @param mode       mode string.
+ * @param stamp      when QSO occurred.
+ * @param sent       exchange ghat was sent.
+ * @param received   exchangfe that was received.
  */
-case class QSO_WFD( lineNumber: Int, body: String, freq: String, mode: String, stamp: ZonedDateTime, sent: Exchange_WFD, received: Exchange_WFD) extends Qso {
+case class QSO_WFD(lineNumber: Int, body: String, freq: String, mode: String, stamp: ZonedDateTime, sent: Exchange_WFD, received: Exchange_WFD) extends Qso {
   def check()(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     checkExchange(sent) ++ checkExchange(received) ++
       checkFreq ++
@@ -75,9 +78,9 @@ case class QSO_WFD( lineNumber: Int, body: String, freq: String, mode: String, s
   }
 
   def checkMode: Seq[CabrilloError] = {
-    if(QsoTagHandler_WFD.modes.contains(mode.toLowerCase)){
+    if (QsoTagHandler_WFD.modes.contains(mode.toLowerCase)) {
       Seq.empty
-    }else{
+    } else {
       Seq(CabrilloError(this, s"""Mode CW,DI or PH but: "$mode""""))
     }
   }
@@ -89,6 +92,9 @@ case class QSO_WFD( lineNumber: Int, body: String, freq: String, mode: String, s
 
   def checkExchange(exchange: Exchange_WFD): Seq[CabrilloError] = {
     Seq.empty
+  }
+  override def withLineNumber(lineNumber: Int): TagValue = {
+    copy(lineNumber=lineNumber)
   }
 
   override def tag: Tag = "QSO"
@@ -119,4 +125,10 @@ case class QSO_NoParse(tag: String, lineNumber: Int, body: String, stamp: ZonedD
   override def sent: Exchange = ExchangeNoParse
 
   override def received: Exchange = ExchangeNoParse
+  override def withLineNumber(lineNumber: Int): TagValue = {
+    copy(lineNumber=lineNumber)
+  }
+
 }
+
+

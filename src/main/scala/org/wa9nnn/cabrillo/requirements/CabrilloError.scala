@@ -49,6 +49,8 @@ object CabrilloError {
   def apply(tag: Tag): CabrilloError = {
     new CabrilloError(0, "", tag, s"Missing tag: $tag")
   }
+
+  val NoError = Seq.empty[CabrilloError]
 }
 
 

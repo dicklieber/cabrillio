@@ -7,3 +7,8 @@ addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.6.0")
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.10.0-RC1")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.25")
+
+addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.12")
+
+//addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "(version)")
+//addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.0.0-M2")

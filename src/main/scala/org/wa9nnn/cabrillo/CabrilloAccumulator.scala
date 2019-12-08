@@ -9,10 +9,10 @@ import scala.collection.concurrent.TrieMap
 /**
  * Collects [[TagValue]]s organized by [[Tag]]
  */
-class FileAccumulator {
+class CabrilloAccumulator {
   private val tagAccumulators = new TrieMap[Tag, TagAccumulator]()
 
-  def accumulate(value: TagValue): Unit = {
+  def apply(value: TagValue): Unit = {
     tagAccumulators
       .getOrElseUpdate(value.tag, new TagAccumulator(value.tag))
       .apply(value)

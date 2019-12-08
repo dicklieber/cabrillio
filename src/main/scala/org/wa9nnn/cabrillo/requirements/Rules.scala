@@ -37,7 +37,7 @@ class Rules(val contestInfo: ContestInfo = new ContestInfoWFD) {
     AnyOneValue("CATEGORY-ASSISTED"),
     AnyOneValue("CATEGORY-BAND"),
     AnyOneValue("CATEGORY-MODE"),
-    OneOrMoreValues("SOAPBOX"),
+    AnyValues("SOAPBOX"),
     AnyOneValue("CLAIMED-SCORE"),
     AnyOneValue("CLUB"),
     AnyOneValue("OPERATORS"),

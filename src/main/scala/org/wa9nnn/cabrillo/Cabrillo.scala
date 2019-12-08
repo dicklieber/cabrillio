@@ -15,7 +15,7 @@ object Cabrillo {
   def apply(source: BufferedSource, url: URL): Result = {
     val start = Instant.now
     implicit val constestInfo = new ContestInfoWFD
-    val parseEngine = new ParseEngine(rules)
+    val parseEngine = new Parser(rules)
     val parsedCabrillo = parseEngine.parse(source)
     val checkEngine = RulesEngine(rules)
 
@@ -35,12 +35,12 @@ object Cabrillo {
 /**
  *
  * @param url            where the daa came from.
- * @param duration       how long it took to run the cabrillo checkRule & report
+ * @param duration       how long it took to run the cabrillo checkRule & reporters
  * @param                 linesInFile total lines in file.
  * @param qsoCount       qso tags in file
  * @param tagsWithErrors that were found.
  * @param unknownTags    those that we dont recognize
- * @param reportRunTime  when this checkRule & report finished.
+ * @param reportRunTime  when this checkRule & reporters finished.
  */
 case class Result(url: URL,
                   duration: Duration,

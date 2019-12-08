@@ -8,13 +8,10 @@ import org.wa9nnn.cabrillo.requirements.Rules
 import scala.io.BufferedSource
 
 /**
- * Knows how to parse a CabrilloData file info a form that can be later validated.
+ * Knows how to parse a Cabrillo file info a form that can be later validated.
  */
-class ParseEngine(handlers:Rules) {
+class Parser(handlers:Rules = new Rules()) {
   private val lineRegx = """(.*)\s*:\s*(.*)""".r
-  //  private val parsers: Map[String, QsoTagHandler_WFD] = Seq(
-  //    QsoTagHandler_WFD.tag → new QsoTagHandler_WFD
-  //  ).toMap
 
   /**
    *
@@ -22,15 +19,15 @@ class ParseEngine(handlers:Rules) {
    * @return map of tag name to values.
    */
   def parse(source: BufferedSource): CabrilloData = {
-    val fileAccumulator = new FileAccumulator
+    val accumulator = new CabrilloAccumulator
 
     source.getLines().zipWithIndex.foreach { t ⇒
       val (line: String, lineNumber: Int) = t
       val lineRegx(tag, body) = line
 
-      fileAccumulator.accumulate(handlers.get(tag).parse(LineBody(lineNumber + 1, body.trim)))
+      accumulator(handlers.get(tag).parse(LineBody(lineNumber + 1, body.trim)))
     }
 
-    CabrilloData(fileAccumulator.result)
+    CabrilloData(accumulator.result)
   }
 }

@@ -10,17 +10,17 @@ class ParseEngineSpec extends org.specs2.mutable.Specification {
   implicit val contestInfo = new ContestInfoWFD
   private val requiredTags = new Rules()
   "Parse Engine" >> {
-    val parseEngine = new ParseEngine(requiredTags)
+    val parseEngine = new Parser(requiredTags)
     val bufferedSource = Source.fromResource("wfd1.cbr")
-    val taggedValues = parseEngine.parse(bufferedSource)
+    val cabrilloData = parseEngine.parse(bufferedSource)
     "parse" >> {
-      val start: Seq[TagValue] = taggedValues("START-OF-LOG")
+      val start: Seq[TagValue] = cabrilloData("START-OF-LOG")
       start must haveLength(1)
       start.head.tag must beEqualTo("START-OF-LOG")
     }
     "checkRule" >> {
       val checkEngine = new RulesEngine(requiredTags)
-      val errors = checkEngine.check(taggedValues)
+      val errors = checkEngine.check(cabrilloData)
       errors._1 must beEmpty
       errors._2 must beEmpty
     }

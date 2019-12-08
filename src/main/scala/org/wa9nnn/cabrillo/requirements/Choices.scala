@@ -2,6 +2,7 @@
 package org.wa9nnn.cabrillo.requirements
 
 import org.wa9nnn.cabrillo.model.{ CabrilloData, TagValue}
+import CabrilloError._
 
 /**
  * A reusable tag handler where there is a fixed set of allowable values for the tag.
@@ -29,7 +30,7 @@ case class Choices(override val tag: String, choices: Set[String], ignoreCase: B
 
   private def ck(tv: TagValue, value: String): Seq[CabrilloError] = {
     if (c.contains(value))
-      noError
+      NoError
     else
       failure(tv, s"Unexpected value: ${tv.body}")
   }

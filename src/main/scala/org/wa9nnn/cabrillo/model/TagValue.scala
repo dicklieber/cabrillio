@@ -1,5 +1,6 @@
 
 package org.wa9nnn.cabrillo.model
+
 import org.wa9nnn.cabrillo.model.CabrilloTypes._
 import org.wa9nnn.cabrillo.parsers.LineBody
 import org.wa9nnn.cabrillo.requirements.{CabrilloError, ContestInfo}
@@ -10,18 +11,30 @@ import org.wa9nnn.cabrillo.requirements.{CabrilloError, ContestInfo}
 trait TagValue {
   def check()(implicit contestInfo: ContestInfo): Seq[CabrilloError]
 
-  def tag:Tag
+  def tag: Tag
+
   def lineNumber: Int
+
   def body: String
+
+  def render: String = {
+    if(body.isEmpty){
+      tag
+    }else{
+      s"$tag $body"
+    }
+  }
+  def withLineNumber(lineNumber:Int): TagValue
 }
 
 /**
  * This has the value for most tags other than QSO.
- * @param tag lValue
+ *
+ * @param tag        lValue
  * @param lineNumber where it occured within the file.
- * @param body rValue
+ * @param body       rValue
  */
-case class SimpleTagValue(tag: Tag, lineNumber: Int, body: String) extends TagValue {
+case class SimpleTagValue(tag: Tag, lineNumber: Int, body: String = "") extends TagValue {
   def this(tag: Tag, lineBody: LineBody) {
     this(tag, lineBody.lineNumber, lineBody.body)
   }
@@ -35,5 +48,9 @@ case class SimpleTagValue(tag: Tag, lineNumber: Int, body: String) extends TagVa
    */
   override def check()(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     Seq.empty
+  }
+
+  override def withLineNumber(lineNumber: Int): TagValue = {
+    copy(lineNumber=lineNumber)
   }
 }
