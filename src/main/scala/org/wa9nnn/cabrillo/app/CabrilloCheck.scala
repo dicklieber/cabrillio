@@ -2,7 +2,6 @@
 package org.wa9nnn.cabrillo.app
 
 import java.io.{File, PrintWriter}
-import java.net.URL
 
 import org.wa9nnn.cabrillo.reporters.ReportJson
 import org.wa9nnn.cabrillo.{Cabrillo, Result}
@@ -47,8 +46,7 @@ object CabrilloCheck {
       case Some(config) =>
         val cabrilloFile = config.in
         val source = Source.fromFile(cabrilloFile, "ASCII")
-        val url: URL = new URL("file", "", cabrilloFile.toString)
-        val result: Result = Cabrillo(source, url)
+        val result: Result = Cabrillo(source).result
         Using(new PrintWriter(System.out)) { writer ⇒
           ReportJson.generate(result, writer)
         }

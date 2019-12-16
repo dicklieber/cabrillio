@@ -11,24 +11,17 @@ import org.wa9nnn.cabrillo.requirements.CabrilloError
 class RenderJsonSpec extends Specification {
 
   "RenderJsonSpec" >> {
-    val result = Result(
-      url = getClass.getResource("/wfd1.cbr"),
-      duration = Duration.ofMinutes(42),
-      linesInFile = 100,
-      qsoCount = 80,
-      tagsWithErrors = Seq(
-        CabrilloError("XYZZY"),
-      ),
-      unknownTags = Seq(
-        CabrilloError(1, "body one", "SomeTag", "messed up"),
-      ),
-      reportRunTime =  LocalDateTime.of(2019, 1, 27,13,0))
+    val result = Result(email = Some("dick@u505.com"), duration = Duration.ofMinutes(42), linesInFile = 100, qsoCount = 80, tagsWithErrors = Seq(
+            CabrilloError("XYZZY"),
+          ), unknownTags = Seq(
+            CabrilloError(1, "body one", "SomeTag", "messed up"),
+          ), reportRunTime =  LocalDateTime.of(2019, 1, 27,13,0))
     "generate with tagsWithErrors" >> {
       val writer = new StringWriter()
       ReportJson.generate(result, writer)
       val string = writer.toString
       string must beEqualTo ("""{
-                               |  "url" : "file:/Users/dlieber/dev/ham/Cabrillo/target/scala-2.13/test-classes/wfd1.cbr",
+                               |  "email" : "dick@u505.com",
                                |  "duration" : "PT42M",
                                |  "linesInFile" : 100,
                                |  "qsoCount" : 80,
@@ -52,7 +45,7 @@ class RenderJsonSpec extends Specification {
       ReportJson.generate(result.copy(tagsWithErrors = Seq.empty), writer)
       val string = writer.toString
       string must beEqualTo ("""{
-                               |  "url" : "file:/Users/dlieber/dev/ham/Cabrillo/target/scala-2.13/test-classes/wfd1.cbr",
+                               |  "email" : "dick@u505.com",
                                |  "duration" : "PT42M",
                                |  "linesInFile" : 100,
                                |  "qsoCount" : 80,

@@ -13,7 +13,7 @@ class ContestInfoWFD extends ContestInfo {
   /**
    *
    * @param location code e.g. "IL"
-   * @throws Exception on anhy error.
+   * @throws Exception on any error.
    */
   override def validateLocation(location: String): Unit = {
     arrlSections.check(location)

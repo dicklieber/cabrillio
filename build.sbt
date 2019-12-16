@@ -3,7 +3,7 @@ maintainer := "wa9nnn@u505.com"
 
 name := "cabrillo"
 
-organization := "org.wa9nnn"
+organization := "com.github.dicklieber"
 
 
 enablePlugins(JavaAppPackaging, JDKPackagerPlugin)
@@ -20,9 +20,19 @@ scalaVersion := "2.13.1"
 //resolvers += Resolver.bintrayRepo("dicklieber", "maven")
 //resolvers += Resolver.bintrayIvyRepo("dicklieber", "maven")
 
+resolvers += "Nexus" at "https://oss.sonatype.org/content/repositories/snapshots"
+
+//credentials += Credentials("Sonatype Nexus Repository Manager", "https://oss.sonatype.org", "dicklieber", "Nagqu3-pytmon-qidzoq")
 
 
-scalacOptions in(Compile, doc) ++= Seq("-verbose")
+//publishTo := {
+//  val nexus = "https://oss.sonatype.org/"
+//  if (isSnapshot.value)
+//    Some("snapshots" at nexus + "content/repositories/snapshots")
+//  else
+//    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+//}
+  scalacOptions in(Compile, doc) ++= Seq("-verbose")
 //scalacOptions in(Compile, doc) ++= Seq("-verbose", "-Yliteral-types")
 
 libraryDependencies ++= Seq(
@@ -34,18 +44,40 @@ libraryDependencies ++= Seq(
   "com.github.scopt" %% "scopt" % "4.0.0-RC2"
 )
 
-//ThisBuild / version := "<YOUR PLUGIN VERSION HERE>"
-//ThisBuild / organization := "<INSERT YOUR ORG HERE>"
-//ThisBuild / description := "<YOUR DESCRIPTION HERE>"
+credentials += Credentials(Path.userHome / ".sbt" / "sonatype_credential")
 
-// This is an example.  sbt-bintray requires licenses to be specified
-// (using a canonical name).
-//ThisBuild / licenses += ("Apache-2.0", url("https://www.apache.org/licenses/LICENSE-2.0.html"))
+ThisBuild / organization := "com.github.dicklieber"
+ThisBuild / organizationName := "Dick Lieber WA9NNN"
+ThisBuild / organizationHomepage := Some(url("http://www.u505.com/cabrillo"))
 
+ThisBuild / scmInfo := Some(
+  ScmInfo(
+    url("https://github.com/dicklieber/cabrillio"),
+    "scm:git@github.com:dickieber/cabrillo.git"
+  )
+)
+ThisBuild / developers := List(
+  Developer(
+    id    = "wa9nnn",
+    name  = "Dick Lieber",
+    email = "your@email",
+    url   = url("http://www.u505.com/cabrillo")
+  )
+)
 
-////bintrayReleaseOnPublish in ThisBuild := true
-//publishMavenStyle := true
-//licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+ThisBuild / description := "Scala library to process amateur radio contest cabrillo format files."
+ThisBuild / licenses := List("GPLv3" -> new URL("https://www.gnu.org/licenses/quick-guide-gplv3.html"))
+ThisBuild / homepage := Some(url("https://github.com/dicklieber/cabrillio"))
+
+// Remove all additional repository other than Maven Central from POM
+ThisBuild / pomIncludeRepository := { _ => false }
+ThisBuild / publishTo := {
+  val nexus = "https://oss.sonatype.org/"
+  if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
+  else Some("releases" at nexus + "service/local/staging/deploy/maven2")
+}
+ThisBuild / publishMavenStyle := true
+
+publishTo := sonatypePublishToBundle.value
 
 //todo use https://github.com/sbt/sbt-release
-//todo publish jar to some public repo.

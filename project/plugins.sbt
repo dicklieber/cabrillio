@@ -10,5 +10,6 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.25")
 
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.12")
 
-//addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "(version)")
-//addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.0.0-M2")
+addSbtPlugin("org.xerial.sbt" % "sbt-sonatype" % "3.8.1")
+
+addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.0.0-M2")
