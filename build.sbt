@@ -80,4 +80,3 @@ ThisBuild / publishMavenStyle := true
 
 publishTo := sonatypePublishToBundle.value
 
-//todo use https://github.com/sbt/sbt-release
