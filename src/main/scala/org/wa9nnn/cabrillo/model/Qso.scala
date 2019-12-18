@@ -1,7 +1,7 @@
 
 package org.wa9nnn.cabrillo.model
 
-import java.time.ZonedDateTime
+import java.time.{Instant, ZonedDateTime}
 
 import org.wa9nnn.cabrillo.requirements.{CabrilloError, Frequencies}
 
@@ -11,7 +11,7 @@ trait Qso extends TagValue {
 
   def mode: String
 
-  def stamp: ZonedDateTime
+  def stamp: Instant
 
   def sent: Exchange
 

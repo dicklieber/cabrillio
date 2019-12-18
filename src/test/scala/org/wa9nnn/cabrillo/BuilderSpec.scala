@@ -1,6 +1,6 @@
 package org.wa9nnn.cabrillo
 
-import java.time.{Instant, ZoneId, ZonedDateTime}
+import java.time.Instant
 
 import org.specs2.mutable.Specification
 import org.wa9nnn.cabrillo.parsers.Exchange_WFD
@@ -12,7 +12,7 @@ class BuilderSpec extends Specification {
       val qsoBuilder = QSO_WFDBuilder()
         .freq("14000")
         .mode("CW")
-        .stamp(ZonedDateTime.ofInstant(Instant.EPOCH, ZoneId.of("UTC")))
+        .stamp(Instant.EPOCH)
         .sent(Exchange_WFD("wa9nnn", "3O", "IL"))
         .received(Exchange_WFD("w1aw", "1I", "CT"))
 

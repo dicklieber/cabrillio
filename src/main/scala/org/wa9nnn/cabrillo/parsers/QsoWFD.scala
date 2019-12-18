@@ -1,7 +1,7 @@
 
 package org.wa9nnn.cabrillo.parsers
 
-import java.time.{LocalDateTime, ZoneId, ZoneOffset, ZonedDateTime}
+import java.time.Instant
 
 import org.wa9nnn.cabrillo.model.CabrilloTypes.{Tag, TagValues}
 import org.wa9nnn.cabrillo.model._
@@ -17,8 +17,8 @@ class QsoTagHandler_WFD extends TagHandler("QSO", AnyNumber) {
     try {
       val mainRegx(sFreq, sMode, sDateTime, sSent, sReceived) = body
       val lineNumber = lineBody.lineNumber
-      val zdt: ZonedDateTime = DateTimeParser(lineNumber, sDateTime)
-      QSO_WFD(lineNumber, body, sFreq, sMode, zdt, toExchange(sSent), toExchange(sReceived))
+      val stamp = DateTimeParser(lineNumber, sDateTime)
+      QSO_WFD(lineNumber, body, sFreq, sMode, stamp, toExchange(sSent), toExchange(sReceived))
     } catch {
       case _: Exception ⇒
         QSO_NoParse(tag, lineBody.lineNumber, body)
@@ -70,7 +70,7 @@ case object ExchangeNoParse extends Exchange
  * @param sent       exchange ghat was sent.
  * @param received   exchangfe that was received.
  */
-case class QSO_WFD(lineNumber: Int, body: String, freq: String, mode: String, stamp: ZonedDateTime, sent: Exchange_WFD, received: Exchange_WFD) extends Qso {
+case class QSO_WFD(lineNumber: Int, body: String, freq: String, mode: String, stamp: Instant, sent: Exchange_WFD, received: Exchange_WFD) extends Qso {
   def check()(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     checkExchange(sent) ++ checkExchange(received) ++
       checkFreq ++
@@ -100,7 +100,7 @@ case class QSO_WFD(lineNumber: Int, body: String, freq: String, mode: String, st
   override def tag: Tag = "QSO"
 }
 
-case class QSO_NoParse(tag: String, lineNumber: Int, body: String, stamp: ZonedDateTime = ZonedDateTime.now()) extends Qso {
+case class QSO_NoParse(tag: String, lineNumber: Int, body: String, stamp: Instant = Instant.EPOCH) extends Qso {
   def check()(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     Seq(CabrilloError(lineNumber, body, tag, "Unparsable QSO"))
   }

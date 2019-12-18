@@ -1,14 +1,14 @@
 
 package org.wa9nnn.cabrillo
 
-import java.time.{ZoneId, ZonedDateTime}
+import java.time.{Instant, ZoneId}
 
 import org.wa9nnn.cabrillo.QSO_WFDBuilder._
 import org.wa9nnn.cabrillo.parsers.{Exchange_WFD, QSO_WFD}
 
 case class QSO_WFDBuilder(freq: Option[String] = None,
                           mode: Option[String] = None,
-                          stamp: Option[ZonedDateTime] = None,
+                          stamp: Option[Instant] = None,
                           sent: Option[Exchange_WFD] = None,
                           received: Option[Exchange_WFD] = None) {
 
@@ -20,8 +20,8 @@ case class QSO_WFDBuilder(freq: Option[String] = None,
     copy(mode = Some(freq))
   }
 
-  def stamp(zdt: ZonedDateTime): QSO_WFDBuilder = {
-    copy(stamp = Some(zdt))
+  def stamp(stamp: Instant): QSO_WFDBuilder = {
+    copy(stamp = Some(stamp))
   }
 
   def sent(sent: Exchange_WFD): QSO_WFDBuilder = {

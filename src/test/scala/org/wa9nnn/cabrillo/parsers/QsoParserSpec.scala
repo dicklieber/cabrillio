@@ -22,7 +22,7 @@ class QsoParserSpec extends Specification {
       qsowfd.sent must beEqualTo(Exchange_WFD("N4KGL", "1O", "AL"))
       qsowfd.received must beEqualTo(Exchange_WFD("KC0JUO", "1I", "IA"))
 
-      qsowfd.stamp.toString must beEqualTo("2017-01-28T19:35Z")
+      qsowfd.stamp.toString must beEqualTo("2017-01-28T19:35:00Z")
     }
     "bad freq" in {
       val lineNumber = 42
@@ -37,7 +37,7 @@ class QsoParserSpec extends Specification {
       qsowfd.sent must beEqualTo(Exchange_WFD("N4KGL", "1O", "AL"))
       qsowfd.received must beEqualTo(Exchange_WFD("KC0JUO", "1I", "IA"))
 
-      qsowfd.stamp.toString must beEqualTo("2017-01-28T19:35Z")
+      qsowfd.stamp.toString must beEqualTo("2017-01-28T19:35:00Z")
 
       val errors: Seq[CabrilloError] = qsowfd.check()
       errors must haveLength(1)
@@ -60,7 +60,7 @@ class QsoParserSpec extends Specification {
       qsowfd.sent must beEqualTo(Exchange_WFD("N4KGL", "1O", "AL"))
       qsowfd.received must beEqualTo(Exchange_WFD("KC0JUO", "1I", "IA"))
 
-      qsowfd.stamp.toString must beEqualTo("2017-01-28T19:35Z")
+      qsowfd.stamp.toString must beEqualTo("2017-01-28T19:35:00Z")
 
       val errors: Seq[CabrilloError] = qsowfd.check()
       errors must haveLength(1)

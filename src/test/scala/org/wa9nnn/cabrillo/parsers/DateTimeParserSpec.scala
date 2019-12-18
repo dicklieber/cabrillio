@@ -9,11 +9,7 @@ class DateTimeParserSpec extends Specification {
   "DateTimeParser" >> {
     "ok" >> {
       val zdt = DateTimeParser(42, "2017-01-28 1910")
-      zdt.getZone must beEqualTo(ZoneOffset.UTC)
-      zdt.getYear must beEqualTo(2017)
-      zdt.getMonthValue must beEqualTo(1)
-      zdt.getDayOfMonth must beEqualTo(28)
-      zdt.toString must beEqualTo("2017-01-28T19:10Z")
+      zdt.toString must beEqualTo("2017-01-28T19:10:00Z")
     }
     "illformed" >> {
       DateTimeParser(42, "2017-01-28:1910") must throwAn[CabrilloException]
