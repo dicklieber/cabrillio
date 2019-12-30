@@ -19,9 +19,9 @@ trait TagValue {
 
   def render: String = {
     if(body.isEmpty){
-      tag
+      s"$tag:"
     }else{
-      s"$tag $body"
+      s"$tag: $body"
     }
   }
   def withLineNumber(lineNumber:Int): TagValue

@@ -21,7 +21,7 @@ class QSO_WFDBuilderSpec extends Specification {
         .received(Exchange_WFD("w1aw", "1I", "CT"))
 
       val q = builder.result(42)
-      q.toString must beEqualTo ("QSO_WFD(42,42 14000 CW 1970-01-01 0000 wa9nnn 3O IL w1aw 1I CT,14000,CW,1970-01-01T00:00:00Z,wa9nnn 3O IL,w1aw 1I CT)")
+      q.toString must beEqualTo ("QSO_WFD(42,14000 CW 1970-01-01 0000 wa9nnn 3O IL w1aw 1I CT,14000,CW,1970-01-01T00:00:00Z,wa9nnn 3O IL,w1aw 1I CT)")
     }
 
   }

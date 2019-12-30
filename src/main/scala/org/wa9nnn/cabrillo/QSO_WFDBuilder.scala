@@ -42,7 +42,7 @@ case class QSO_WFDBuilder(freq: Option[String] = None,
     val st = stamp.get
     val s = sent.get
     val r = received.get
-    val body = s"$lineNumber $f $m ${fmt.format(st)} $s $r"
+    val body = s"$f $m ${fmt.format(st)} $s $r"
     QSO_WFD(lineNumber, body, f, m, st, s, r)
   }
 }
