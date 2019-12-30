@@ -19,7 +19,7 @@ trait Qso extends TagValue {
 
   def checkFreq: Seq[CabrilloError] = {
     try {
-      Frequencies.check(freq)
+     val band =  Frequencies.check(freq)
       Seq.empty
     } catch {
       case _: Exception ⇒

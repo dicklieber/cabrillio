@@ -10,10 +10,10 @@ object Contest extends TagHandler("CONTEST") {
     val tagValues: Seq[TagValue] = parsedCabrillo(tag)
     val head = tagValues.head
     val expectedContest = "WFD"
-    if (head.body == expectedContest) {
+     if (head.body.startsWith(expectedContest)) {
       Seq.empty
     } else {
-      failure(head, s"""$tag is not "V3.0"""")
+      failure(head, s"""$tag is not "$expectedContest"""")
     }
   }
 }

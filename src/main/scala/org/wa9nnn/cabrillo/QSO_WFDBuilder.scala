@@ -5,6 +5,7 @@ import java.time.{Instant, ZoneId}
 
 import org.wa9nnn.cabrillo.QSO_WFDBuilder._
 import org.wa9nnn.cabrillo.parsers.{Exchange_WFD, QSO_WFD}
+import org.wa9nnn.cabrillo.requirements.Frequencies
 
 case class QSO_WFDBuilder(freq: Option[String] = None,
                           mode: Option[String] = None,
@@ -37,7 +38,13 @@ case class QSO_WFDBuilder(freq: Option[String] = None,
     val present: Seq[Object] = (freq ++ mode ++ stamp ++ sent ++ received).toSeq
     if (present.size < 5)
       throw new IllegalStateException(f"Missing ${5 - present.size} values")
-    val f = freq.get
+    val f = try {
+      Frequencies.check(freq.get)
+    } catch {
+      case e: Exception =>
+        // Just using Frequencies to adapt khz to band, well test further later
+        freq.get
+    }
     val m = mode.get
     val st = stamp.get
     val s = sent.get
@@ -52,5 +59,5 @@ object QSO_WFDBuilder {
 
   import java.time.format.DateTimeFormatter
 
- val fmt: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm").withZone(ZoneId.of("UTC"))
+  val fmt: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm").withZone(ZoneId.of("UTC"))
 }

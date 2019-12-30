@@ -54,7 +54,7 @@ class CabrilloWriterSpec extends Specification {
                               |QSO: 14000 PH 2017-01-28 2110 N4KGL         1O  AL      K2GAV         1H  CT
                               |QSO: 14000 PH 2017-01-28 2120 N4KGL         1O  AL      WW1USA        1I  MO
                               |QSO: 14000 PH 2017-01-28 2122 N4KGL         1O  AL      CG3RB         2O  ONE
-                              |END-OF-LOG
+                              |END-OF-LOG:
                               |""".stripMargin)
     }
 
