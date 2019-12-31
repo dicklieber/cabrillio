@@ -1,7 +1,6 @@
 package org.wa9nnn.cabrillo.reporters
 
-import java.io.{PrintWriter, StringWriter}
-import java.net.URL
+import java.io.StringWriter
 import java.time.{Duration, LocalDateTime}
 
 import org.specs2.mutable.Specification
@@ -11,7 +10,7 @@ import org.wa9nnn.cabrillo.requirements.CabrilloError
 class RenderJsonSpec extends Specification {
 
   "RenderJsonSpec" >> {
-    val result = Result(email = Some("dick@u505.com"), duration = Duration.ofMinutes(42), linesInFile = 100, qsoCount = 80, tagsWithErrors = Seq(
+    val result = Result(callSign = Some("WM9W"), duration = Duration.ofMinutes(42), linesInFile = 100, qsoCount = 80, tagsWithErrors = Seq(
             CabrilloError("XYZZY"),
           ), unknownTags = Seq(
             CabrilloError(1, "body one", "SomeTag", "messed up"),
@@ -21,7 +20,7 @@ class RenderJsonSpec extends Specification {
       ReportJson.generate(result, writer)
       val string = writer.toString
       string must beEqualTo ("""{
-                               |  "email" : "dick@u505.com",
+                               |  "callSign" : "WM9W",
                                |  "duration" : "PT42M",
                                |  "linesInFile" : 100,
                                |  "qsoCount" : 80,
@@ -45,7 +44,7 @@ class RenderJsonSpec extends Specification {
       ReportJson.generate(result.copy(tagsWithErrors = Seq.empty), writer)
       val string = writer.toString
       string must beEqualTo ("""{
-                               |  "email" : "dick@u505.com",
+                               |  "callSign" : "WM9W",
                                |  "duration" : "PT42M",
                                |  "linesInFile" : 100,
                                |  "qsoCount" : 80,

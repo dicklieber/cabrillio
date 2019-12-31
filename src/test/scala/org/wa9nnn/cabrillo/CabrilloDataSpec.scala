@@ -1,24 +1,20 @@
 package org.wa9nnn.cabrillo
 
+import org.apache.commons.io.IOUtils
 import org.specs2.mutable.Specification
 import org.wa9nnn.cabrillo.requirements.CabrilloError
 
-import scala.io.Source
-
 class CabrilloDataSpec extends Specification {
+  implicit def f(file: String): Array[Byte] = IOUtils.resourceToByteArray(file)
 
   "CabrilloDataSpec" should {
     "apply" in {
-      val url = getClass.getResource("/wfd1.cbr")
-      val bufferedSource = Source.fromURL(url)
-      val result = Cabrillo(bufferedSource).result
+      val result = Cabrillo("/wfd1.cbr").result
       println(s"result: $result")
       result.tagsWithErrors must beEmpty
     }
     "nostart" in {
-      val url = getClass.getResource("/wfd-nostart.cbr")
-      val bufferedSource = Source.fromURL(url)
-      val resultWithData = Cabrillo(bufferedSource)
+      val resultWithData = Cabrillo("/wfd-nostart.cbr")
       resultWithData.goodData must beNone
       val result = resultWithData.result
       val errors = result.tagsWithErrors
@@ -26,13 +22,11 @@ class CabrilloDataSpec extends Specification {
       errors.head must beEqualTo(CabrilloError("START-OF-LOG"))
       val unknownTags = result.unknownTags
       unknownTags must haveSize(1)
-      unknownTags.head must beEqualTo(CabrilloError(1, "3.0","START-OF-LOGXYZZY", "Unknown tag: START-OF-LOGXYZZY"))
+      unknownTags.head must beEqualTo(CabrilloError(1, "3.0", "START-OF-LOGXYZZY", "Unknown tag: START-OF-LOGXYZZY"))
     }
     "bad start version" in {
-      val expectedError: CabrilloError = CabrilloError(1,"2.0","START-OF-LOG","""START-OF-LOG is not "V3.0"""")
-      val url = getClass.getResource("/wfd-badstart.cbr")
-      val bufferedSource = Source.fromURL(url)
-      val resultWithData = Cabrillo(bufferedSource)
+      val expectedError: CabrilloError = CabrilloError(1, "2.0", "START-OF-LOG", """START-OF-LOG is not "V3.0"""")
+      val resultWithData = Cabrillo("/wfd-badstart.cbr")
       resultWithData.goodData must beNone
       val result = resultWithData.result
       result.tagsWithErrors must haveSize(1)

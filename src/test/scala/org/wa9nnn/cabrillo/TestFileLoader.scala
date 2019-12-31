@@ -9,7 +9,7 @@ object TestFileLoader {
   def apply(fileName: String = "wfd1.cbr"): CabrilloData = {
     val parseEngine = new Parser
     val bufferedSource = Source.fromResource("wfd1.cbr")
-    parseEngine.parse(bufferedSource)
+    parseEngine.parse(bufferedSource.getLines().toSeq)
 
   }
 }

@@ -41,7 +41,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2",
   "nl.grons" %% "metrics4-scala" % "4.1.1",
   "com.typesafe.play" %% "play-json" % "2.8.0",
-  "com.github.scopt" %% "scopt" % "4.0.0-RC2"
+  "com.github.scopt" %% "scopt" % "4.0.0-RC2",
+  "commons-io" % "commons-io" % "2.6"
 )
 
 credentials += Credentials(Path.userHome / ".sbt" / "sonatype_credential")
