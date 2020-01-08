@@ -75,7 +75,7 @@ abstract class TagHandler(val tag: Tag, val cardinality: Cardinality = One) exte
 case class AnyOneValue(override val tag: Tag) extends TagHandler(tag, OneOrNone) {
   override def tagCheck(parsedCabrillo: CabrilloData)(implicit contestInfo: ContestInfo): Seq[CabrilloError] = {
     parsedCabrillo(tag).flatMap { tv =>
-      if (tv.body.isBlank)
+      if (tv.body.length == 0)
         Seq(CabrilloError(tv, "Value is required"))
       else
         NoError

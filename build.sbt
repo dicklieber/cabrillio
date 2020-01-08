@@ -10,6 +10,14 @@ enablePlugins(JavaAppPackaging, JDKPackagerPlugin)
 
 scalaVersion := "2.13.1"
 
+javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
+initialize := {
+  val _ = initialize.value
+  val javaVersion = sys.props("java.specification.version")
+  if (javaVersion != "1.8")
+    sys.error("Java 1.8 is required for this project. Found " + javaVersion + " instead")
+}
+
 //resolvers += Resolver.githubPackagesRepo("dicklieber", "cabrillo")
 
 //publishTo := Some("GitHub Package Registry" at "https://maven.pkg.github.com/dicklieber/cabrillio")
@@ -32,7 +40,9 @@ resolvers += "Nexus" at "https://oss.sonatype.org/content/repositories/snapshots
 //  else
 //    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
 //}
-  scalacOptions in(Compile, doc) ++= Seq("-verbose")
+
+
+  scalacOptions in(Compile, doc) ++= Seq("-verbose", "-target:jvm-1.8")
 //scalacOptions in(Compile, doc) ++= Seq("-verbose", "-Yliteral-types")
 
 libraryDependencies ++= Seq(
