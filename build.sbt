@@ -91,3 +91,4 @@ ThisBuild / publishMavenStyle := true
 
 publishTo := sonatypePublishToBundle.value
 
+releasePublishArtifactsAction := PgpKeys.publishSigned.value
