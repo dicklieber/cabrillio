@@ -5,6 +5,10 @@ name := "cabrillo"
 
 organization := "com.github.dicklieber"
 
+githubOwner := "dicklieber"
+
+githubRepository := "cabrillo"
+
 
 enablePlugins(JavaAppPackaging, JDKPackagerPlugin)
 
@@ -55,40 +59,42 @@ libraryDependencies ++= Seq(
   "commons-io" % "commons-io" % "2.6"
 )
 
-credentials += Credentials(Path.userHome / ".sbt" / "sonatype_credential")
+//credentials += Credentials(Path.userHome / ".sbt" / "sonatype_credential")
+//
+//ThisBuild / organization := "com.github.dicklieber"
+//ThisBuild / organizationName := "Dick Lieber WA9NNN"
+//ThisBuild / organizationHomepage := Some(url("http://www.u505.com/cabrillo"))
+//
+//ThisBuild / scmInfo := Some(
+//  ScmInfo(
+//    url("https://github.com/dicklieber/cabrillio"),
+//    "scm:git@github.com:dickieber/cabrillo.git"
+//  )
+//)
+//ThisBuild / developers := List(
+//  Developer(
+//    id    = "wa9nnn",
+//    name  = "Dick Lieber",
+//    email = "dick@u505.com",
+//    url   = url("http://www.u505.com/cabrillo")
+//  )
+//)
 
-ThisBuild / organization := "com.github.dicklieber"
-ThisBuild / organizationName := "Dick Lieber WA9NNN"
-ThisBuild / organizationHomepage := Some(url("http://www.u505.com/cabrillo"))
-
-ThisBuild / scmInfo := Some(
-  ScmInfo(
-    url("https://github.com/dicklieber/cabrillio"),
-    "scm:git@github.com:dickieber/cabrillo.git"
-  )
-)
-ThisBuild / developers := List(
-  Developer(
-    id    = "wa9nnn",
-    name  = "Dick Lieber",
-    email = "dick@u505.com",
-    url   = url("http://www.u505.com/cabrillo")
-  )
-)
-
-ThisBuild / description := "Scala library to process amateur radio contest cabrillo format files."
-ThisBuild / licenses := List("GPLv3" -> new URL("https://www.gnu.org/licenses/quick-guide-gplv3.html"))
-ThisBuild / homepage := Some(url("https://github.com/dicklieber/cabrillio"))
-
-// Remove all additional repository other than Maven Central from POM
-ThisBuild / pomIncludeRepository := { _ => false }
-ThisBuild / publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
-  else Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
-ThisBuild / publishMavenStyle := true
-
-publishTo := sonatypePublishToBundle.value
-
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
+//ThisBuild / description := "Scala library to process amateur radio contest cabrillo format files."
+//ThisBuild / licenses := List("GPLv3" -> new URL("https://www.gnu.org/licenses/quick-guide-gplv3.html"))
+//ThisBuild / homepage := Some(url("https://github.com/dicklieber/cabrillio"))
+//
+//// Remove all additional repository other than Maven Central from POM
+//ThisBuild / pomIncludeRepository := { _ => false }
+//ThisBuild / publishTo := {
+//  val nexus = "https://oss.sonatype.org/"
+//  if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
+//  else Some("releases" at nexus + "service/local/staging/deploy/maven2")
+//}
+//ThisBuild / publishMavenStyle := true
+//
+//publishTo := sonatypePublishToBundle.value
+//
+//releasePublishArtifactsAction := PgpKeys.publishSigned.value
+//
+//credentials += Credentials(Path.userHome / ".sbt" / "sonatype_credential")
