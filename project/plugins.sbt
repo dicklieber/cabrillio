@@ -14,4 +14,6 @@ addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.12")
 
 addSbtPlugin("com.jsuereth" % "sbt-pgp" % "2.0.0")
 
-addSbtPlugin("com.codecommit" % "sbt-github-packages" % "0.3.0")
+//addSbtPlugin("com.codecommit" % "sbt-github-packages" % "0.3.0")
+addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.6")
+//addSbtPlugin("me.lessis" % "sbt-bintray" % "0.3.0")
