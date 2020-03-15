@@ -19,6 +19,8 @@ class CabrilloAccumulator {
       .apply(value)
   }
 
+  def delete(tag: Tag):Unit = tagAccumulators.remove(tag)
+
   def result: Map[String, Seq[TagValue]] = tagAccumulators.values.map(_.collect)
     .map(tv ⇒ tv.head.tag → tv)
     .toMap

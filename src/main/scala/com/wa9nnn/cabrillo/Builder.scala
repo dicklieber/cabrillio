@@ -31,6 +31,12 @@ class Builder(version: String = "3.0") {
     this
   }
 
+  /**
+   * Removes all instances of the tag.
+   * @param tag to be removed.
+   */
+  def delete(tag: Tag):Unit = accumulator.delete(tag)
+
   def toCabrilloData: CabrilloData = {
     accumulator(model.SimpleTagValue("END-OF-LOG", next()))
     model.CabrilloData(accumulator.result)
