@@ -5,17 +5,17 @@ name := "cabrillo-lib"
 
 scalaVersion := "2.13.1"
 
-javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
-initialize := {
-  val _ = initialize.value
-  val javaVersion = sys.props("java.specification.version")
-  if (javaVersion != "1.8")
-    sys.error("Java 1.8 is required for this project. Found " + javaVersion + " instead")
-}
+//javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
+//initialize := {
+//  val _ = initialize.value
+//  val javaVersion = sys.props("java.specification.version")
+////  if (javaVersion != "1.8")
+////    sys.error("Java 1.8 is required for this project. Found " + javaVersion + " instead")
+//}
 
 //resolvers += Resolver.bintrayRepo("dicklieber", "maven-cabrillo")
 
-  scalacOptions in(Compile, doc) ++= Seq("-verbose", "-target:jvm-1.8")
+  scalacOptions in(Compile, doc) ++= Seq("-verbose")
 //scalacOptions in(Compile, doc) ++= Seq("-verbose", "-Yliteral-types")
 
 libraryDependencies ++= Seq(
@@ -34,5 +34,11 @@ ThisBuild / organizationHomepage := Some(url("http://www.u505.com/cabrillo"))
 ThisBuild / licenses := List("GPL-3.0" -> new URL("https://www.gnu.org/licenses/quick-guide-gplv3.html"))
 
 
-publishTo := Some("Artifactory Realm" at "https://wa9nnn.jfrog.io/artifactory/wa9nnn")
-credentials += Credentials(Path.userHome / ".sbt" / "jfrog.credentials")
+//resolvers += ("reposilite-repository-releases" at  ("http://194.113.64.105:8080/releases")).withAllowInsecureProtocol(true)
+
+credentials += Credentials(Path.userHome / ".sbt" / "credentials-reposolite")
+
+publishTo := Some(("Reposilite" at "http://194.113.64.105:8080/releases").withAllowInsecureProtocol(true))
+
+
+
